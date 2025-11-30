@@ -1,62 +1,101 @@
-const cars = [
-    {
-        make: "Tesla",
-        model: "Model 3",
-        price: "$42,000",
-        image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-    },
-    {
-        make: "Porsche",
-        model: "Taycan",
-        price: "$85,000",
-        image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-    },
-    {
-        make: "Ford",
-        model: "Mustang Mach-E",
-        price: "$45,000",
-        image: "https://images.unsplash.com/photo-1620882372658-5290b230238e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-    }
-];
 
-const button = document.getElementById("my-btn");
-
-button.addEventListener("click", function() {
-    button.textContent = "Clicked!";
-});
-
-// 1. Select the toggle button
-const themeToggle = document.getElementById('theme-toggle');
-
-// 2. Listen for a click
-themeToggle.addEventListener('click', () => {
+    /* --- JAVASCRIPT (script.js) --- */
     
-    // 3. Toggle the class on the BODY element
-    document.body.classList.toggle('dark-mode');
-    
-    // Optional: Switch the icon based on the mode
-    if (document.body.classList.contains('dark-mode')) {
-        themeToggle.textContent = "☀️"; // Change to Sun
-    } else {
-        themeToggle.textContent = "🌙"; // Change back to Moon
+    // 1. Select DOM Elements
+    const taskInput = document.getElementById('task-input');
+    const categorySelect = document.getElementById('category-select');
+    const dateInput = document.getElementById('date-input');
+    const addBtn = document.getElementById('add-btn');
+    const taskList = document.getElementById('task-list');
+
+    // 2. Load Tasks from LocalStorage on startup
+    let tasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+    renderTasks();
+
+    // 3. Add Task Function
+    addBtn.addEventListener('click', () => {
+        const text = taskInput.value;
+        const category = categorySelect.value;
+        const date = dateInput.value;
+
+        if (text === '') {
+            alert("Please enter a task name!");
+            return;
+        }
+        if (date === '') {
+            alert("Please pick a due date!");
+            return;
+        }
+
+        const newTask = {
+            id: Date.now(), // Unique ID based on time
+            text: text,
+            category: category,
+            date: date
+        };
+
+        tasks.push(newTask);
+        saveAndRender();
+        
+        // Clear inputs
+        taskInput.value = '';
+        dateInput.value = '';
+    });
+
+    // 4. Delete Task Function
+    function deleteTask(id) {
+        tasks = tasks.filter(task => task.id !== id);
+        saveAndRender();
     }
-});
 
+    // 5. Save to LocalStorage and Update UI
+    function saveAndRender() {
+        localStorage.setItem('myTasks', JSON.stringify(tasks));
+        renderTasks();
+    }
 
-// 3. Loop through the array and create HTML
-const container = document.getElementById('project-container');
+    // 6. The Render Logic (Includes Reminder Check)
+    function renderTasks() {
+        taskList.innerHTML = ""; // Clear current list
 
-// Clear existing content (optional, but good practice)
-container.innerHTML = "";
+        // Sort tasks by date (Earliest first)
+        tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-cars.forEach(car => {
-    const cardHTML = `
-        <div class="card">
-            <img src="${car.image}" alt="${car.make}" style="width:100%; border-radius: 5px;">
-            <h3>${car.make} ${car.model}</h3>
-            <p>Starting at: <strong>${car.price}</strong></p>
-            <button style="margin-top:10px; padding:5px 10px; cursor:pointer;">Buy Now</button>
-        </div>
-    `;
-    container.innerHTML += cardHTML;
-});
+        const todayStr = new Date().toISOString().split('T')[0]; // Get today as YYYY-MM-DD
+
+        tasks.forEach(task => {
+            // Check if Due Today
+            const isDueToday = (task.date === todayStr);
+            const isOverdue = (task.date < todayStr);
+
+            // Create HTML
+            const li = document.createElement('li');
+            
+            // Add styling classes based on category and due date
+            let cardClass = `task-card cat-${task.category}`;
+            let reminderHTML = "";
+
+            if (isDueToday) {
+                cardClass += " due-today";
+                reminderHTML = `<span class="due-alert">⚠️ Due Today!</span>`;
+            } else if (isOverdue) {
+                reminderHTML = `<span class="due-alert" style="color:red">Overdue</span>`;
+            }
+
+            li.innerHTML = `
+                <div class="${cardClass}">
+                    <div class="task-info">
+                        <span class="task-title">${task.text}</span>
+                        <div class="task-meta">
+                            <span class="badge badge-${task.category}">${task.category}</span>
+                            <span>📅 ${task.date}</span>
+                            ${reminderHTML}
+                        </div>
+                    </div>
+                    <button class="delete-btn" onclick="deleteTask(${task.id})">🗑️</button>
+                </div>
+            `;
+
+            taskList.appendChild(li);
+        });
+    }

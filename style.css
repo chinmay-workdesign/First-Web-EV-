@@ -1,131 +1,189 @@
-/* 1. Global Reset (Removes weird default gaps) */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    background-color: powderblue; /* Bringing the color back! */
-}
 
-/* 2. Navbar Styles */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: navy;
-    color: white;
-    padding: 15px 30px;
-}
+        /* --- CSS (style.css) --- */
+        :root {
+            --primary: #6c5ce7;
+            --bg: #dfe6e9;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --danger: #d63031;
+            --success: #00b894;
+            
+            /* Category Colors */
+            --cat-school: #0984e3;
+            --cat-knowledge: #00b894;
+            --cat-entertainment: #e17055;
+            --cat-other: #636e72;
+        }
 
-.nav-links {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-/* 3. Main Content Styles (The Hero Section) */
-.hero-section {
-    display: flex;             /* Turn on Flexbox */
-    flex-direction: column;    /* Stack heading and button vertically */
-    justify-content: center;   /* Center vertically */
-    align-items: center;       /* Center horizontally */
-    height: 80vh;              /* Take up 80% of the screen height */
-    text-align: center;
-}
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
 
-h1 {
-    color: navy;
-    font-size: 3rem;           /* Make the text nice and big */
-    margin-bottom: 20px;
-}
+        /* --- Input Section --- */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 10px;
+        }
 
-button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
+        input, select, button {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
 
-/* --- DARK MODE STYLES --- */
+        input:focus, select:focus {
+            border-color: var(--primary);
+        }
 
-/* 1. Change the whole page background and text */
-body.dark-mode {
-    background-color: #121212;  /* Very dark grey (easier on eyes than pure black) */
-    color: white;
-}
+        /* Responsive Row for Desktop */
+        @media (min-width: 600px) {
+            .row {
+                display: flex;
+                gap: 10px;
+            }
+            .row > * {
+                flex: 1;
+            }
+        }
 
-/* 2. Change specific text that was previously Navy */
-body.dark-mode h1 {
-    color: #add8e6; /* Light Blue (so it stands out on dark background) */
-}
+        button#add-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
 
-/* 3. Change the Navbar to match the dark theme */
-body.dark-mode nav {
-    background-color: #333333; /* Dark Grey */
-    border-bottom: 1px solid #555;
-}
+        button#add-btn:hover {
+            background-color: #5849be;
+            transform: translateY(-2px);
+        }
 
-/* Optional: Style the toggle button itself so it looks nice */
-#theme-toggle {
-    background: none;
-    border: 1px solid white;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    font-size: 1.2rem;
-    padding: 5px 10px;
-}
+        /* --- Task List Section --- */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-/* --- GRID SECTION --- */
-.grid-section {
-    padding: 50px;
-    text-align: center;
-}
+        .task-card {
+            background: white;
+            border-left: 5px solid var(--cat-other); /* Default color */
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
 
-.card-grid {
-    display: grid;              /* Turn on Grid */
-    grid-template-columns: 1fr 1fr 1fr; /* Create 3 equal columns (1 fraction each) */
-    gap: 20px;                  /* Space between cards */
-    margin-top: 30px;
-}
+        .task-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-.card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    color: black;
-    overflow: hidden; /* NEW: Keeps image corners neat */
-}
+        .task-info {
+            flex-grow: 1;
+        }
 
-/* Dark Mode Support for Cards */
-body.dark-mode .card {
-    background-color: #333; /* Dark card background */
-    color: white;           /* White text */
-    box-shadow: 0 4px 8px rgba(255,255,255,0.1); /* White glow shadow */
-}
+        .task-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-/* --- RESPONSIVE DESIGN (Mobile) --- */
-@media (max-width: 768px) {
-    
-    /* 1. Change the Grid from 3 columns to 1 column */
-    .card-grid {
-        grid-template-columns: 1fr; 
-    }
+        .task-meta {
+            font-size: 0.85rem;
+            color: #666;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
 
-    /* 2. Make the Navbar stack vertically instead of side-by-side */
-    nav {
-        flex-direction: column;
-        gap: 15px;
-    }
+        .badge {
+            padding: 2px 8px;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
 
-    /* 3. Adjust the font size slightly for smaller screens */
-    h1 {
-        font-size: 2rem;
-    }
-}
+        /* Dynamic Category Colors */
+        .cat-School { border-color: var(--cat-school); }
+        .badge-School { background-color: var(--cat-school); }
+
+        .cat-Knowledge { border-color: var(--cat-knowledge); }
+        .badge-Knowledge { background-color: var(--cat-knowledge); }
+
+        .cat-Entertainment { border-color: var(--cat-entertainment); }
+        .badge-Entertainment { background-color: var(--cat-entertainment); }
+
+        .cat-Other { border-color: var(--cat-other); }
+        .badge-Other { background-color: var(--cat-other); }
+
+        /* Reminder / Due Today Styles */
+        .due-today {
+            border: 2px solid var(--danger);
+            background-color: #fff0f0;
+        }
+        .due-alert {
+            color: var(--danger);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Delete Button */
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff7675;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+        .delete-btn:hover {
+            color: var(--danger);
+        }

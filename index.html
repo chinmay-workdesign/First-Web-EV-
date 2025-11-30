@@ -1,33 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First Project</title>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Task Manager</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-    <div class="logo">MySite</div>
-    <ul class="nav-links">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><button id="theme-toggle">🌙</button></li>
-    </ul>
-</nav>
 
-    <main class="hero-section">
-        <h1>My Favorite Place</h1>
-        <button id="my-btn">Click Me</button>
-    </main>
-    <section class="grid-section">
-    <h2>Recent Projects</h2>
-    
-    <section class="grid-section">
-    <h2>Recent Projects</h2>
-    <div class="card-grid" id="project-container"></div>
-</section>
-</section>
-    <script src="script.js"></script>
+<div class="container">
+    <h1>📝 Task Manager</h1>
+
+    <!-- INPUT SECTION -->
+    <div class="input-group">
+        <input type="text" id="task-input" placeholder="What do you need to do?">
+        
+        <div class="row">
+            <select id="category-select">
+                <option value="School">School</option>
+                <option value="Knowledge">Knowledge</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+            </select>
+            <input type="date" id="date-input">
+        </div>
+
+        <button id="add-btn">Add Task</button>
+    </div>
+
+    <!-- LIST SECTION -->
+    <ul id="task-list">
+        <!-- Tasks will be injected here by JS -->
+    </ul>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
