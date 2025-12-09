@@ -1,0 +1,2380 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Swarna Nagar | Sustainable City Portfolio</title>
+    
+    <!-- Tailwind CSS with Dark Mode Configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            450: '#10b981', // Custom accent
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- Highlight.js for Code Styling -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        h1, h2, h3, .brand-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Card Hover Effects - Adaptive to theme */
+        .problem-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: #10b981; /* Emerald-500 */
+        }
+        /* Dark mode hover shadow */
+        html.dark .problem-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+        }
+        /* Light mode hover shadow */
+        html:not(.dark) .problem-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+        html.dark ::-webkit-scrollbar-track {
+            background: #111827;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #059669; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #047857; 
+        }
+        
+        /* Modal Animation */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        /* Code Block Scroll */
+        pre {
+            scrollbar-width: thin;
+            scrollbar-color: #4b5563 #1f2937;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 dark:bg-gray-900/95 backdrop-blur-md sticky top-0 z-40 border-b border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center cursor-pointer" onclick="showPage('home')">
+                    <i class="fa-solid fa-leaf text-emerald-600 dark:text-emerald-500 text-2xl mr-2"></i>
+                    <span class="brand-font text-xl font-bold text-gray-900 dark:text-white tracking-tight">Project Swarna Nagar</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <!-- Nav Links -->
+                    <button onclick="showPage('home')" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Overview</button>
+                    <button onclick="showPage('member1')" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Chinmay</button>
+                    <button onclick="showPage('member2')" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Amogh</button>
+                    <button onclick="showPage('member3')" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Subhash</button>
+                    <button onclick="showPage('member4')" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Abhinav</button>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition focus:outline-none" aria-label="Toggle Dark Mode">
+                        <i id="theme-icon" class="fa-solid fa-sun text-yellow-500 text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden space-x-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <i id="mobile-theme-icon" class="fa-solid fa-sun text-yellow-500 text-xl"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4 space-y-2 shadow-lg">
+            <button onclick="showPage('home')" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Home</button>
+            <button onclick="showPage('member1')" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Chinmay</button>
+            <button onclick="showPage('member2')" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Amogh</button>
+            <button onclick="showPage('member3')" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Subhash</button>
+            <button onclick="showPage('member4')" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Abhinav</button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow relative">
+
+        <!-- ================= HOME PAGE ================= -->
+        <section id="home" class="page-section fade-in">
+            <!-- Hero -->
+            <div class="relative bg-white dark:bg-gray-900 overflow-hidden border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+                <div class="absolute inset-0 opacity-10">
+                    <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <path d="M0 100 C 20 0 50 0 100 100 Z" fill="#10b981" />
+                    </svg>
+                </div>
+                <!-- Gradient overlay -->
+                <div class="absolute inset-0 bg-gradient-to-br from-emerald-100/40 via-white to-white dark:from-emerald-900/20 dark:via-gray-900 dark:to-gray-900"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 text-center">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">Building the Futuristic & Sustainable City with Code</h1>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-10">
+                        Designing a sustainable, efficient, and resilient city using concepts of Data Structures and Algorithms.
+                    </p>
+                    <button onclick="document.getElementById('team').scrollIntoView()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-emerald-500/30 dark:shadow-emerald-900/50 transition transform hover:scale-105 border border-emerald-500/30">
+                        Meet the Team
+                    </button>
+                </div>
+            </div>
+
+            <!-- Project Overview -->
+            <div class="max-w-7xl mx-auto px-4 py-16">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-bold text-emerald-600 dark:text-emerald-400 mb-4">The Algorithm of a City</h2>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10">
+                        Swarna Nagar isn't just concrete and glass. It's built on a foundation of efficient graphs, optimized heaps, and dynamic programming. Our team of four engineers tackles specific urban challenges through computational logic.
+                    </p>
+
+                    <!-- City Image -->
+                    <div class="mb-10 flex justify-center">
+                        <img src="Final City Image Coloured.png" alt="Swarna Nagar City Design" class="max-w-2xl w-full rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                    </div>
+
+                    <!-- Course Details Card -->
+                    <div class="bg-emerald-50 dark:bg-gray-800 rounded-xl p-6 max-w-4xl mx-auto border border-emerald-100 dark:border-gray-700 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow duration-300">
+                        <!-- Decorative bg element -->
+                        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-emerald-100 dark:bg-emerald-900/20 rounded-full blur-xl opacity-50"></div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left relative z-10">
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-8 mt-1"><i class="fa-solid fa-book text-emerald-500"></i></div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Course</p>
+                                        <p class="font-medium text-gray-800 dark:text-gray-200">DAA (Design & Analysis of Algorithms)</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-8 mt-1"><i class="fa-solid fa-code text-emerald-500"></i></div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Course Code</p>
+                                        <p class="font-medium text-gray-800 dark:text-gray-200">24ECSC205</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-8 mt-1"><i class="fa-solid fa-chalkboard-user text-emerald-500"></i></div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Course Instructor</p>
+                                        <p class="font-medium text-gray-800 dark:text-gray-200">Prof. Prakash Hegade</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-8 mt-1"><i class="fa-solid fa-university text-emerald-500"></i></div>
+                                    <div>
+                                        <p class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">University</p>
+                                        <p class="font-medium text-gray-800 dark:text-gray-200">KLE Technological University</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Topic Badge -->
+                        <div class="mt-6 pt-6 border-t border-emerald-100 dark:border-gray-700 flex justify-center">
+                            <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-emerald-100 dark:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300">
+                                <i class="fa-solid fa-lightbulb mr-2"></i> Project Topic: City Design
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Team Grid -->
+                <div id="team" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Member 1 Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition cursor-pointer group" onclick="showPage('member1')">
+                        <div class="h-1 bg-blue-500"></div>
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition">
+                                <i class="fa-solid fa-road text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Chinmay B Sabarad</h3>
+                            <p class="text-blue-600 dark:text-blue-400 font-medium text-sm">Roll No: 259</p>
+                            <p class="text-blue-600 dark:text-blue-400 font-medium text-sm">USN: 01FE24BCS201</p>
+                            <p class="text-blue-600 dark:text-blue-400 font-medium text-sm mb-4">Traffic & Transportation</p>
+                            <p class="text-gray-600 dark:text-blue-400 font-medium text-sm mb-2">Member Skills: C,C++,HTML,CSS</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Optimizing flow using Graph Theory and Pathfinding algorithms.</p>
+                            <div class="mt-4 text-blue-600 dark:text-blue-400 font-semibold text-sm flex items-center">
+                                View Portfolio <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Member 2 Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition cursor-pointer group" onclick="showPage('member2')">
+                        <div class="h-1 bg-yellow-500"></div>
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mb-4 text-yellow-600 dark:text-yellow-400 group-hover:bg-yellow-600 group-hover:text-white transition">
+                                <i class="fa-solid fa-bolt text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Amogh Samji</h3>
+                            <p class="text-yellow-600 dark:text-yellow-400 font-medium text-sm">Roll No: 252</p>
+                            <p class="text-yellow-600 dark:text-yellow-400 font-medium text-sm">USN: 01FE24BCS193</p>
+                            <p class="text-yellow-600 dark:text-yellow-400 font-medium text-sm mb-4">Energy & Utilities</p>
+                            <p class="text-yellow-600 dark:text-yellow-400 font-medium text-sm mb-2">Member Skills: C,C++,HTML,CSS</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Managing grid loads with Greedy Algorithms and Minimum Spanning Trees.</p>
+                            <div class="mt-4 text-yellow-600 dark:text-yellow-400 font-semibold text-sm flex items-center">
+                                View Portfolio <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Member 3 Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition cursor-pointer group" onclick="showPage('member3')">
+                        <div class="h-1 bg-purple-500"></div>
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400 group-hover:bg-purple-600 group-hover:text-white transition">
+                                <i class="fa-solid fa-city text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Subhash Reddy</h3>
+                            <p class="text-purple-600 dark:text-purple-400 font-medium text-sm">Roll No: 221</p>
+                            <p class="text-purple-600 dark:text-purple-400 font-medium text-sm">USN: 01FE24BCS094</p>
+                            <p class="text-purple-600 dark:text-purple-400 font-medium text-sm mb-4">Urban Planning</p>
+                            <p class="text-purple-600 dark:text-purple-400 font-medium text-sm mb-2">Member Skills: C,C++,HTML,CSS</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Space allocation and zoning utilizing Dynamic Programming and 2D Arrays.</p>
+                            <div class="mt-4 text-purple-600 dark:text-purple-400 font-semibold text-sm flex items-center">
+                                View Portfolio <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Member 4 Card -->
+                    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition cursor-pointer group" onclick="showPage('member4')">
+                        <div class="h-1 bg-red-500"></div>
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mb-4 text-red-600 dark:text-red-400 group-hover:bg-red-600 group-hover:text-white transition">
+                                <i class="fa-solid fa-truck-medical text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Abhinav Raj</h3>
+                            <p class="text-red-600 dark:text-red-400 font-medium text-sm">Roll No: 253</p>
+                            <p class="text-red-600 dark:text-red-400 font-medium text-sm">USN: 01FE24BCS194</p>
+                            <p class="text-red-600 dark:text-red-400 font-medium text-sm mb-4">Emergency & Waste</p>
+                            <p class="text-red-600 dark:text-red-400 font-medium text-sm mb-2">Member Skills: C,C++,HTML,CSS</p>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Resource dispatch and routing using Heaps and Priority Queues.</p>
+                            <div class="mt-4 text-red-600 dark:text-red-400 font-semibold text-sm flex items-center">
+                                View Portfolio <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Land Use & Budget Charts: two columns each with image + table -->
+                <div class="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Column 1: Land Use -->
+                    <div class="space-y-6 flex flex-col items-start">
+                        <img src="Land Use Distribution Pie Chart.png" alt="Land Use Distribution Pie Chart" class="w-11/12 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden w-full">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="bg-emerald-50 dark:bg-emerald-900/30 border-b border-gray-200 dark:border-gray-700">
+                                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Land Use Category</th>
+                                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Percentage</th>
+                                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Area (sq km)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Industrial</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">25%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">277.7</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Residential</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">20%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">222.2</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Algriculture</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">15%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">166.65</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Commercial</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">15%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">166.6</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Public Utilities & Infrastructure</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">10%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">111.1</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Rest All</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">15%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">166.6</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Budget Allocation -->
+                    <div class="space-y-6 flex flex-col items-start">
+                        <img src="Budget Allocation Image.png" alt="Budget Allocation" class="w-11/12 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+
+                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden w-full">
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="bg-emerald-50 dark:bg-emerald-900/30 border-b border-gray-200 dark:border-gray-700">
+                                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Budget Category</th>
+                                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Allocation %</th>
+                                            <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white">Amount (Cr)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Infrastructure & Public Utilities</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">25%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">63700</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Industrial Zone Dev</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">20%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">50960</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Residential Zone Dev</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">13%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">33124</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Commercial Dev</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">11%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">28028</td>
+                                        </tr>
+                                        <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Entertainment & Tourism</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">7%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">17836</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition">
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">Rest All</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">24%</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">61152</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MEMBER 1 PAGE ================= -->
+        <section id="member1" class="page-section hidden fade-in">
+            <div class="bg-blue-600 dark:bg-blue-900/50 border-b border-blue-500 dark:border-blue-900/50 py-12 transition-colors">
+                <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+                    <div class="md:w-3/4 text-white">
+                        <h2 class="text-4xl font-bold mb-2">Chinmay B Sabarad</h2>
+                        <h3 class="text-blue-100 dark:text-blue-300 text-xl font-medium">Head of Traffic & Transportation Systems</h3>
+                        <p class="mt-4 max-w-2xl text-blue-50 dark:text-gray-300">"Traffic isn't just cars; it's a flow network. By applying advanced graph algorithms, we minimize congestion and reduce the city's carbon footprint."</p>
+                    </div>
+                    <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
+                        <i class="fa-solid fa-road text-9xl text-blue-300 dark:text-blue-500 opacity-30"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-blue-500 pl-4">10 Key Problems Solved</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Cards with onclick events -->
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Dijkstra's Algo</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Shortest Path Navigation</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Calculating the fastest route for EVs from point A to B considering dynamic edge weights (traffic).</p>
+                    </div>
+                    
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Ford-Fulkerson</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Max Traffic Flow</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Determining the maximum capacity of the highway network during rush hour to prevent bottlenecks.</p>
+                    </div>
+                    <!-- Added Problems for completeness based on user request to be thorough -->
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">BFS</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Subway Connectivity Check</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Using Breadth-First Search to ensure all stations in the metro network are reachable from the central hub.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Cycle Detection</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Deadlock Prevention</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Detecting circular dependencies in autonomous vehicle routing logic using DFS to prevent gridlock.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Union-Find</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Road Network Maintenance</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Determining connected components of the city road map when specific roads are closed for repairs.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Tarjan's Algo</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Critical Bridge Identification</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Finding articulation points in the graph to identify bridges that, if failed, would disconnect the city.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Sorting</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Traffic Light Sync</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Sorting intersection throughput data to prioritize green light duration for high-volume streets.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">A* Search</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Drone Delivery Routing</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Heuristic pathfinding for aerial delivery drones to avoid no-fly zones and high buildings.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Sliding Window</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Congestion Monitoring</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Analyzing real-time sensor streams to detect traffic spikes within a specific time window.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Greedy</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">EV Charging Stations</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Optimally placing charging stations to cover the maximum number of road segments with minimum cost.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MEMBER 2 PAGE ================= -->
+        <section id="member2" class="page-section hidden fade-in">
+            <div class="bg-yellow-500 dark:bg-yellow-900/50 border-b border-yellow-400 dark:border-yellow-900/50 py-12 transition-colors">
+                <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+                    <div class="md:w-3/4 text-white">
+                        <h2 class="text-4xl font-bold mb-2">Amogh Samji</h2>
+                        <h3 class="text-yellow-100 dark:text-yellow-300 text-xl font-medium">Head of Energy & Utilities</h3>
+                        <p class="mt-4 max-w-2xl text-yellow-50 dark:text-gray-300">"Sustainable power requires smart distribution. We use greedy algorithms and spanning trees to ensure every watt produced by our solar farms is used efficiently."</p>
+                    </div>
+                    <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
+                        <i class="fa-solid fa-bolt text-9xl text-yellow-200 dark:text-yellow-500 opacity-30"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-yellow-500 pl-4">10 Key Problems Solved</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Prim's Algorithm</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Grid Connectivity</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Designing the Minimum Spanning Tree (MST) for cabling to connect all neighborhoods with the least amount of copper.</p>
+                    </div>
+
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Knapsack (DP)</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Battery Storage Optimization</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Deciding which energy packets to store in batteries during peak production to maximize value during night time.</p>
+                    </div>
+                    <!-- (Continued for other cards: Load Balancing, Topological Sort, Binary Search, Segment Tree, Huffman Coding, Graph Coloring, Fenwick Tree, Hash Map) -->
+                    <!-- I am including the structure for all cards but abbreviating inner content for brevity in this response, fully implemented in the problemDatabase below -->
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Greedy</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Load Balancing</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Assigning power requests to the nearest available substation to minimize transmission loss.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Topological Sort</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">System Boot Sequence</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Determining the order to turn on power plant subsystems where certain systems depend on others.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Binary Search</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Fault Detection</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Quickly locating a break in a long linear power line by testing midpoints.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Segment Tree</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Peak Usage Query</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Efficiently querying the maximum energy usage in a specific district over a given time range.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Huffman Coding</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Smart Meter Compression</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Compressing data sent from smart meters to the central hub to save bandwidth.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Graph Coloring</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Frequency Allocation</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Assigning control frequencies to smart substations so adjacent stations don't interfere.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Fenwick Tree</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Real-time Consumption</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Updating and calculating prefix sums of energy consumption across city blocks dynamically.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-yellow-200 dark:border-yellow-800">Hash Map</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Billing & User lookup</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">O(1) access to user profiles and energy credits for millions of citizens.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MEMBER 3 PAGE ================= -->
+        <section id="member3" class="page-section hidden fade-in">
+             <div class="bg-purple-600 dark:bg-purple-900/50 border-b border-purple-500 dark:border-purple-900/50 py-12 transition-colors">
+                <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+                    <div class="md:w-3/4 text-white">
+                        <h2 class="text-4xl font-bold mb-2">Subhash Reddy</h2>
+                        <h3 class="text-purple-100 dark:text-purple-300 text-xl font-medium">Head of Urban Planning</h3>
+                        <p class="mt-4 max-w-2xl text-purple-50 dark:text-gray-300">"A city is a matrix. I use Dynamic Programming and Spatial Data Structures to ensure optimal land use, minimizing sprawl and maximizing green space."</p>
+                    </div>
+                    <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
+                        <i class="fa-solid fa-city text-9xl text-purple-300 dark:text-purple-500 opacity-30"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-purple-500 pl-4">10 Key Problems Solved</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">2D Prefix Sum</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Population Density Analysis</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Rapidly calculating the total population in any rectangular region of the city grid.</p>
+                    </div>
+                     <!-- (Continued for: Quadtree, Convex Hull, Dynamic Programming, Backtracking, Stack, K-Means, Bipartite Matching, Line Sweep, Matrix Traversal) -->
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Quadtree</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Spatial Indexing</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Efficiently storing locations of points of interest (parks, schools) to query "what is near me".</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Convex Hull</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">City Boundary Logic</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Determining the smallest convex polygon containing all city suburbs for administrative zoning.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Dynamic Programming</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Housing Allocation</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Optimizing the mix of affordable, luxury, and commercial units to maximize utility under budget constraints.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Backtracking</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Constraint Satisfaction</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Solving zoning puzzles (e.g., placing industrial zones far from residential ones) by exploring valid configurations.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Stack</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Skyline Problem</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Computing the city skyline view for rendering and sunlight analysis using monotonic stacks.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">K-Means Clustering</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Service Center Locations</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Grouping neighborhoods to determine the optimal centroids for new post offices or libraries.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Bipartite Matching</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Job Assignment</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Matching construction crews to building projects based on skills and location constraints.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Line Sweep</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Overlap Detection</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Detecting overlapping structures or utility lines in the architectural blueprints.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Matrix Traversal (DFS)</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Flood Risk Assessment</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Simulating water flow across the city terrain grid to identify low-lying flood zones.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= MEMBER 4 PAGE ================= -->
+        <section id="member4" class="page-section hidden fade-in">
+             <div class="bg-red-600 dark:bg-red-900/50 border-b border-red-500 dark:border-red-900/50 py-12 transition-colors">
+                <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+                    <div class="md:w-3/4 text-white">
+                        <h2 class="text-4xl font-bold mb-2">Abhinav Raj</h2>
+                        <h3 class="text-red-100 dark:text-red-300 text-xl font-medium">Head of Emergency & Waste Services</h3>
+                        <p class="mt-4 max-w-2xl text-red-50 dark:text-gray-300">"Safety and cleanliness rely on speed. We utilize Heaps and Priority Queues to ensure ambulances arrive instantly and waste is collected before bins overflow."</p>
+                    </div>
+                    <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
+                        <i class="fa-solid fa-truck-medical text-9xl text-red-300 dark:text-red-500 opacity-30"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 py-12">
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-red-500 pl-4">10 Key Problems Solved</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Priority Queue (Min-Heap)</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Emergency Dispatch</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Always dispatching the nearest ambulance to the highest severity incident first.</p>
+                    </div>
+                     <!-- (Continued for: TSP, Multi-Source BFS, KNN, Trie, Interval Scheduling, Circular Queue, Floyd-Warshall, HashSet, LRU Cache) -->
+                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">TSP (Approximation)</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Garbage Truck Routing</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Optimizing the route for waste collection trucks to visit all bins and return to the depot with minimum fuel.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Multi-Source BFS</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Fire Station Coverage</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Calculating the minimum time for fire trucks to reach any building from multiple station locations simultaneously.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">K-Nearest Neighbors</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Crime Hotspot Prediction</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Classifying safe vs. risk zones based on proximity to historical incident data.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Trie</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Emergency Contact Lookup</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Autocompleting and finding medical records or addresses instantly during 911 calls.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Interval Scheduling</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Hospital Bed Management</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Maximizing the number of surgeries scheduled in operating rooms based on start/end times.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Circular Queue</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Dispatch Logs</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Maintaining a fixed-size buffer of the most recent emergency calls for audit and playback.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Floyd-Warshall</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Disaster Evacuation</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Pre-calculating all-pairs shortest paths to determine evacuation routes from every district to every shelter.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">Set (HashSet)</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Duplicate Incident Filtering</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Filtering out multiple reports of the same fire or accident in real-time to prevent resource waste.</p>
+                    </div>
+                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                        <div class="flex items-center mb-2">
+                            <span class="bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-red-200 dark:border-red-800">LRU Cache</span>
+                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Medical Data Access</h4>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Caching recently accessed patient records on ambulance tablets for instant retrieval.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Structure (Themed) -->
+    <div id="problemModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeProblemModal()"></div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col relative z-10 transition-colors">
+            <!-- Modal Header -->
+            <div class="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 dark:text-white font-mono">Algorithm Title</h3>
+                <button onclick="closeProblemModal()" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Modal Content -->
+            <div class="p-6 overflow-y-auto custom-scrollbar bg-gray-50 dark:bg-gray-900/50">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Problem Statement</h4>
+                        <p id="modalProblem" class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                            Problem description goes here.
+                        </p>
+                        
+                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Solution Approach</h4>
+                        <p id="modalSolution" class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            Solution explanation goes here.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">C++ Implementation</h4>
+                        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+                            <pre><code id="modalCode" class="language-cpp">
+// Code goes here
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 text-gray-800 dark:text-white py-8 mt-auto transition-colors">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="brand-font text-lg font-bold">Project Swarna Nagar</span>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Building a sustainable future, one algorithm at a time.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"><i class="fa-brands fa-twitter text-xl"></i></a>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-gray-500 dark:text-gray-600 text-xs">
+            &copy; 2025 Project Swarna Nagar Team (KLETU). All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Theme Toggle Logic ---
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            const mobileIcon = document.getElementById('mobile-theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                icon.classList.remove('text-yellow-500');
+                icon.classList.add('text-gray-600');
+                
+                mobileIcon.classList.remove('fa-sun');
+                mobileIcon.classList.add('fa-moon');
+                mobileIcon.classList.remove('text-yellow-500');
+                mobileIcon.classList.add('text-gray-600');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                icon.classList.add('text-yellow-500');
+                icon.classList.remove('text-gray-600');
+                
+                mobileIcon.classList.remove('fa-moon');
+                mobileIcon.classList.add('fa-sun');
+                mobileIcon.classList.add('text-yellow-500');
+                mobileIcon.classList.remove('text-gray-600');
+            }
+        }
+
+        // Initialize Theme
+        if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+             document.documentElement.classList.remove('dark');
+             document.getElementById('theme-icon').classList.remove('fa-sun', 'text-yellow-500');
+             document.getElementById('theme-icon').classList.add('fa-moon', 'text-gray-600');
+             document.getElementById('mobile-theme-icon').classList.remove('fa-sun', 'text-yellow-500');
+             document.getElementById('mobile-theme-icon').classList.add('fa-moon', 'text-gray-600');
+        } else {
+            document.documentElement.classList.add('dark');
+            // Default icons are set to sun/yellow in HTML
+        }
+
+        // --- Navigation Logic ---
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- Modal Logic ---
+        function openProblemModal(element) {
+            const title = element.querySelector('h4').innerText;
+            const data = problemDatabase[title];
+            
+            if (data) {
+                document.getElementById('modalTitle').innerText = title;
+                document.getElementById('modalProblem').innerText = data.problem;
+                document.getElementById('modalSolution').innerText = data.solution;
+                
+                const codeElement = document.getElementById('modalCode');
+                codeElement.textContent = data.code;
+                delete codeElement.dataset.highlighted; // Reset highlight state
+                hljs.highlightElement(codeElement);
+                
+                document.getElementById('problemModal').classList.add('active');
+            } else {
+                console.error("No data found for: " + title);
+            }
+        }
+
+        function closeProblemModal() {
+            document.getElementById('problemModal').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeProblemModal();
+            }
+        });
+
+        // --- Problem Data Database (Expanded Content) ---
+        const problemDatabase = {
+            // --- Chinmay's Problems ---
+            "Shortest Path Navigation": {
+                problem: "Electric Vehicles (EVs) suffer from range anxiety. In a city with dynamic traffic conditions, finding the shortest path based on distance alone is insufficient. We need to find the quickest path from a start point to an end point in a city graph where edge weights represent real-time traffic delay, ensuring optimal battery usage and time efficiency.",
+                solution: "We model the city as a weighted directed graph where intersections are nodes and roads are edges. Dijkstra's Algorithm is the optimal choice here because edge weights (time delay) are non-negative. We use a Priority Queue to always explore the shortest known path first, expanding layer by layer. This guarantees finding the shortest path with a time complexity of O(E log V).",
+                code: `#include<iostream>
+#include<algorithm>
+using namespace std;
+
+class dijkstra
+{
+public:
+    int path[4];
+    int dist[4];
+    int visited[4];
+    void initialise(int cost[4][4], int source);
+    int minimum();
+    void updation(int cost[4][4]);
+    void shortest_path(int cost[4][4],int source);
+    void print(int source);
+};
+
+void dijkstra::initialise(int cost[4][4],int source)
+{
+    int i;
+    for(i=0;i<4;i++)
+    {
+        path[i]=source;
+        dist[i] = (cost[source][i] == 0) ? 10000000 : cost[source][i];
+        visited[i]=0;
+    }
+    visited[source]=1;
+    dist[source]=0;
+}
+
+int dijkstra::minimum()
+{
+    int mini=10000000;
+    int minindex=-1;
+    for (int i=0;i<4;i++)
+    {
+        if (!visited[i] && dist[i]<mini)
+        {
+            mini=dist[i];
+            minindex=i;
+        }
+    }
+    return minindex;
+}
+
+void dijkstra::updation(int cost[4][4])
+{
+    int u=minimum();
+    if (u==-1)
+        return;
+    visited[u]=1;
+    for (int i=0;i<4;i++)
+    {
+        if (visited[i]==0)
+        {
+        dist[i]=min(dist[i],dist[u]+cost[u][i]);
+        if (dist[i]==dist[u]+cost[u][i])
+            path[i]=u;
+        }
+    }
+
+}
+void dijkstra::shortest_path(int cost[4][4],int source)
+{
+    initialise(cost,source);
+    for (int i=0;i<3;i++)
+        updation(cost);
+}
+
+void dijkstra::print(int source)
+{
+    for (int i = 0; i < 4; i++)
+    {
+    if (i != source)
+    {
+    cout << "Shortest path from " << source << " to " << i << " is " << dist[i] << " through path: ";
+    int j = i;
+    cout << j;
+    while (path[j] != source)
+        {
+            cout << " <- " << path[j];
+            j = path[j];
+        }
+    cout << " <- " << source << endl;
+    }
+    }
+}
+
+int main()
+{
+int v;
+int source;
+int cost[4][4];
+cout<<"Enter the source vertex: ";
+cin>>source;
+cout<<"Enter the cost matrix\n";
+for (int i=0;i<4;i++)
+{
+    for (int j=0;j<4;j++)
+    {
+       cin>>cost[i][j];
+    }
+}
+dijkstra Dijkstra;
+Dijkstra.shortest_path(cost, source);
+Dijkstra.print(source);
+return 0;
+}`
+            },
+            "Max Traffic Flow": {
+                problem: "During rush hour, specific highways feeding into the city center get clogged. We need to calculate the theoretical maximum number of vehicles that can travel from the residential suburbs (Source) to the central business district (Sink) without exceeding the capacity of any individual road segment.",
+                solution: "This is a classic Max-Flow Min-Cut problem. We use the Ford-Fulkerson algorithm (specifically the Edmonds-Karp implementation using BFS) to find augmenting paths in the residual graph. As long as there is a path from source to sink with available capacity, we push more flow. The algorithm terminates when no such path exists, giving us the max flow.",
+                code: `// C++ program for implementation of Ford Fulkerson
+// algorithm
+#include <iostream>
+#include <limits.h>
+#include <queue>
+#include <string.h>
+using namespace std;
+
+// Number of vertices in given graph
+#define V 6
+
+/* Returns true if there is a path from source 's' to sink
+  't' in residual graph. Also fills parent[] to store the
+  path */
+bool bfs(int rGraph[V][V], int s, int t, int parent[])
+{
+    // Create a visited array and mark all vertices as not
+    // visited
+    bool visited[V];
+    memset(visited, 0, sizeof(visited));
+
+    // Create a queue, enqueue source vertex and mark source
+    // vertex as visited
+    queue<int> q;
+    q.push(s);
+    visited[s] = true;
+    parent[s] = -1;
+
+    // Standard BFS Loop
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+
+        for (int v = 0; v < V; v++) {
+            if (visited[v] == false && rGraph[u][v] > 0) {
+                // If we find a connection to the sink node,
+                // then there is no point in BFS anymore We
+                // just have to set its parent and can return
+                // true
+                if (v == t) {
+                    parent[v] = u;
+                    return true;
+                }
+                q.push(v);
+                parent[v] = u;
+                visited[v] = true;
+            }
+        }
+    }
+
+    // We didn't reach sink in BFS starting from source, so
+    // return false
+    return false;
+}
+
+// Returns the maximum flow from s to t in the given graph
+int fordFulkerson(int graph[V][V], int s, int t)
+{
+    int u, v;
+
+    // Create a residual graph and fill the residual graph
+    // with given capacities in the original graph as
+    // residual capacities in residual graph
+    int rGraph[V]
+              [V]; // Residual graph where rGraph[i][j]
+                   // indicates residual capacity of edge
+                   // from i to j (if there is an edge. If
+                   // rGraph[i][j] is 0, then there is not)
+    for (u = 0; u < V; u++)
+        for (v = 0; v < V; v++)
+            rGraph[u][v] = graph[u][v];
+
+    int parent[V]; // This array is filled by BFS and to
+                   // store path
+
+    int max_flow = 0; // There is no flow initially
+
+    // Augment the flow while there is path from source to
+    // sink
+    while (bfs(rGraph, s, t, parent)) {
+        // Find minimum residual capacity of the edges along
+        // the path filled by BFS. Or we can say find the
+        // maximum flow through the path found.
+        int path_flow = INT_MAX;
+        for (v = t; v != s; v = parent[v]) {
+            u = parent[v];
+            path_flow = min(path_flow, rGraph[u][v]);
+        }
+
+        // update residual capacities of the edges and
+        // reverse edges along the path
+        for (v = t; v != s; v = parent[v]) {
+            u = parent[v];
+            rGraph[u][v] -= path_flow;
+            rGraph[v][u] += path_flow;
+        }
+
+        // Add path flow to overall flow
+        max_flow += path_flow;
+    }
+
+    // Return the overall flow
+    return max_flow;
+}
+
+// Driver program to test above functions
+int main()
+{
+    // Let us create a graph shown in the above example
+    int graph[V][V]
+        = { { 0, 16, 13, 0, 0, 0 }, { 0, 0, 10, 12, 0, 0 },
+            { 0, 4, 0, 0, 14, 0 },  { 0, 0, 9, 0, 0, 20 },
+            { 0, 0, 0, 7, 0, 4 },   { 0, 0, 0, 0, 0, 0 } };
+
+    cout << "The maximum possible flow is "
+         << fordFulkerson(graph, 0, 5);
+
+    return 0;
+}`
+            },
+            "Subway Connectivity Check": {
+                problem: "The subway system must remain fully connected for efficient transit. If a maintenance event isolates a station or a group of stations from the central hub, passengers could be stranded. We need an automated way to verify that every station is reachable from the main hub.",
+                solution: "We perform a Breadth-First Search (BFS) or Depth-First Search (DFS) starting from the central hub (node 0). As we traverse, we mark every reached node as 'visited'. After the traversal is complete, we check if the count of visited nodes equals the total number of stations. If not, the graph is disconnected.",
+                code: `#include<iostream>
+#include <list>
+using namespace std;
+
+class Graph {
+    int V;
+    list <int> * adj;
+    void DFSUtil(int v, bool visited[]);  // A function used by DFS
+    
+    
+public:
+    Graph(int V);
+    void addEdge(int V, int w);
+    void DFS();    // prints DFS traversal of the complete graph
+    void BFS();
+    
+};
+
+Graph::Graph(int V){
+    this->V = V;
+    adj = new list<int>[V];
+}
+
+void Graph::addEdge(int V, int w) {
+    this->adj[V].push_back(w); // push back to add to the linked list
+}
+
+void Graph::DFSUtil(int v , bool visited[]) {
+    visited[v] = true;
+    cout << v << " ";
+    
+    list<int>:: iterator i;
+    for (i = adj[v].begin(); i != adj[v].end(); ++i) {
+        if (!visited[*i]) {
+            DFSUtil(*i, visited);
+        }
+    }
+}
+
+void Graph::DFS(){
+    
+    // Mark all the vertices as not visited
+    bool *visited = new bool[V];
+    for(int i = 0; i < V; i++)
+        visited[i] = false;
+    
+    // Call the recursive helper function to print DFS traversal
+    // starting from all vertices one by one
+    for(int i = 0; i < V; i++)
+        if(visited[i] == false)
+            DFSUtil(i, visited);
+    
+}
+
+// To implement
+void Graph::BFS(){
+    queue <int> myQueue;
+    bool * visited = new bool[V];
+    for(int i = 0; i < V; i++)
+        visited[i] = false;
+    
+    if (visited[0] == false) {
+        
+        myQueue.push(0);
+        visited[0] = true;
+        while (!myQueue.empty()) {
+            list<int>::iterator i;
+            int node = myQueue.front();
+            for (i = adj[node].begin(); i != adj[node].end(); i++) {
+                if (!visited[*i]) {
+                    cout << *i <<endl;
+                    visited[*i] = true;
+                    myQueue.push(*i);
+                }
+
+            }
+            myQueue.pop();
+        }
+    }   
+}`
+            },
+             "Deadlock Prevention": {
+                problem: "In a futuristic grid of autonomous vehicles, vehicles communicate to reserve intersections. If four vehicles arrive at a 4-way stop simultaneously and each waits for the one on its right, a deadlock occurs. We need to detect these circular wait conditions.",
+                solution: "We model the resource allocation (intersections) as a directed graph. A deadlock corresponds to a cycle in this graph. We use Depth First Search (DFS) with a recursion stack tracking the current traversal path. If we encounter a node that is currently in the recursion stack, a back-edge exists, confirming a cycle.",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+class Graph {
+    int V; // number of vertices
+    vector<vector<int>> adj; // adjacency list
+
+    void dfsUtil(int u, vector<bool>& visited, vector<int>& recStack) {
+        // Mark current node as visited
+        visited[u] = true;
+        recStack.push_back(u); // add to recursion stack
+
+        cout << "DFS Path so far: ";
+        for (int node : recStack) cout << node << " ";
+        cout << "\n";
+
+        // Explore neighbors
+        for (int v : adj[u]) {
+            if (!visited[v]) {
+                dfsUtil(v, visited, recStack);
+            }
+            else {
+                // If v is already in recursion stack, cycle detected
+                if (find(recStack.begin(), recStack.end(), v) != recStack.end()) {
+                    cout << "Cycle detected involving node " << v << "\n";
+                }
+            }
+        }
+
+        // Backtrack: remove from recursion stack
+        recStack.pop_back();
+    }
+
+public:
+    Graph(int V) {
+        this->V = V;
+        adj.resize(V);
+    }
+
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+    }
+
+    void DFS(int start) {
+        vector<bool> visited(V, false);
+        vector<int> recStack; // recursion stack path
+        dfsUtil(start, visited, recStack);
+    }
+};
+
+int main() {
+    Graph g(6);
+    g.addEdge(0, 1);
+    g.addEdge(0, 2);
+    g.addEdge(1, 3);
+    g.addEdge(2, 4);
+    g.addEdge(3, 5);
+    g.addEdge(4, 5);
+    g.addEdge(5, 0); // back edge to create a cycle
+
+    cout << "Starting DFS from node 0:\n";
+    g.DFS(0);
+
+    return 0;
+}`
+            },
+             "Road Network Maintenance": {
+                problem: "Roads are frequently closed for maintenance or due to accidents. We need a system that can quickly determine if two specific districts are still connected via some path, or if they have been separated into disjoint components.",
+                solution: "The Disjoint Set Union (DSU) or Union-Find data structure is ideal here. It maintains a collection of disjoint sets. Operations like `union` (merging two sets when a road is open) and `find` (checking which set a district belongs to) are nearly constant time, O(alpha(n)). This is much faster than running BFS/DFS for every query.",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+class DSU {
+    vector<int> parent, rank;
+public:
+    DSU(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; i++) parent[i] = i;
+    }
+
+    // Find with path compression
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    // Union by rank
+    void unite(int x, int y) {
+        int px = find(x);
+        int py = find(y);
+        if (px == py) return;
+
+        if (rank[px] < rank[py]) {
+            parent[px] = py;
+        } else if (rank[px] > rank[py]) {
+            parent[py] = px;
+        } else {
+            parent[py] = px;
+            rank[px]++;
+        }
+    }
+
+    // Check if two nodes are connected
+    bool connected(int x, int y) {
+        return find(x) == find(y);
+    }
+};
+
+int main() {
+    int n = 6; // number of districts
+    DSU dsu(n);
+
+    // Add roads (union operations)
+    dsu.unite(0, 1);
+    dsu.unite(1, 2);
+    dsu.unite(3, 4);
+
+    // Queries
+    cout << "Are district 0 and 2 connected? "
+         << (dsu.connected(0, 2) ? "Yes" : "No") << "\n";
+
+    cout << "Are district 0 and 3 connected? "
+         << (dsu.connected(0, 3) ? "Yes" : "No") << "\n";
+
+    // Add a road between 2 and 3
+    dsu.unite(2, 3);
+
+    cout << "After adding road (2-3), are district 0 and 3 connected? "
+         << (dsu.connected(0, 3) ? "Yes" : "No") << "\n";
+
+    return 0;
+}`
+            },
+             "Critical Bridge Identification": {
+                problem: "To ensure resilience, we must identify 'critical' roads. These are edges in the graph that, if removed or destroyed, would increase the number of connected components (i.e., split the city in two).",
+                solution: "We use Tarjan's Bridge-Finding algorithm. It performs a DFS traversal and maintains two arrays: `discovery_time` and `low_link_value`. An edge (u, v) is a bridge if `low[v] > disc[u]`, meaning there is no back-edge from the subtree of v to u or any ancestor of u.",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+class Graph {
+    int V; // number of vertices
+    vector<vector<int>> adj;
+    int timer;
+
+    void dfs(int u, int parent, vector<int>& disc, vector<int>& low, vector<pair<int,int>>& bridges) {
+        disc[u] = low[u] = ++timer;
+
+        for (int v : adj[u]) {
+            if (v == parent) continue; // skip the edge to parent
+
+            if (disc[v] == -1) {
+                // Tree edge
+                dfs(v, u, disc, low, bridges);
+                low[u] = min(low[u], low[v]);
+
+                // Bridge condition
+                if (low[v] > disc[u]) {
+                    bridges.push_back({u, v});
+                }
+            } else {
+                // Back edge
+                low[u] = min(low[u], disc[v]);
+            }
+        }
+    }
+
+public:
+    Graph(int V) {
+        this->V = V;
+        adj.resize(V);
+        timer = 0;
+    }
+
+    void addEdge(int u, int v) {
+        adj[u].push_back(v);
+        adj[v].push_back(u); // undirected graph
+    }
+
+    vector<pair<int,int>> findBridges() {
+        vector<int> disc(V, -1), low(V, -1);
+        vector<pair<int,int>> bridges;
+
+        for (int i = 0; i < V; i++) {
+            if (disc[i] == -1) {
+                dfs(i, -1, disc, low, bridges);
+            }
+        }
+        return bridges;
+    }
+};
+
+int main() {
+    int V = 5;
+    Graph g(V);
+
+    g.addEdge(0, 1);
+    g.addEdge(1, 2);
+    g.addEdge(2, 0);
+    g.addEdge(1, 3);
+    g.addEdge(3, 4);
+
+    vector<pair<int,int>> bridges = g.findBridges();
+
+    cout << "Bridges in the graph:\n";
+    for (auto &edge : bridges) {
+        cout << edge.first << " - " << edge.second << "\n";
+    }
+
+    return 0;
+}`
+            },
+             "Traffic Light Sync": {
+                problem: "We have vehicle count data for hundreds of intersections. To improve flow, we want to prioritize green light duration for the busiest intersections. We need to rank them efficiently.",
+                solution: "Sorting algorithms like Merge Sort or Quick Sort are used. Merge Sort O(n log n) is preferred if stability (preserving original order of equal elements) is important. This allows us to process the top K busiest intersections efficiently.",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+// ---------- Bubble Sort ----------
+void bubbleSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 0; i < n-1; i++) {
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1]) {
+                swap(arr[j], arr[j+1]);
+            }
+        }
+    }
+}
+
+// ---------- Insertion Sort ----------
+void insertionSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j] > key) {
+            arr[j+1] = arr[j];
+            j--;
+        }
+        arr[j+1] = key;
+    }
+}
+
+// ---------- Merge Sort ----------
+void merge(vector<int>& arr, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    vector<int> L(n1), R(n2);
+
+    for (int i = 0; i < n1; i++) L[i] = arr[l+i];
+    for (int j = 0; j < n2; j++) R[j] = arr[m+1+j];
+
+    int i = 0, j = 0, k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+}
+
+void mergeSort(vector<int>& arr, int l, int r) {
+    if (l < r) {
+        int m = l + (r-l)/2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m+1, r);
+        merge(arr, l, m, r);
+    }
+}
+
+// ---------- Quick Sort ----------
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[i+1], arr[high]);
+    return i+1;
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi-1);
+        quickSort(arr, pi+1, high);
+    }
+}
+
+// ---------- Heap Sort ----------
+void heapify(vector<int>& arr, int n, int i) {
+    int largest = i;
+    int l = 2*i + 1;
+    int r = 2*i + 2;
+
+    if (l < n && arr[l] > arr[largest]) largest = l;
+    if (r < n && arr[r] > arr[largest]) largest = r;
+
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+
+void heapSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = n/2 - 1; i >= 0; i--) heapify(arr, n, i);
+    for (int i = n-1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}
+
+// ---------- Utility ----------
+void printArray(const vector<int>& arr) {
+    for (int x : arr) cout << x << " ";
+    cout << "\n";
+}
+
+int main() {
+    vector<int> arr = {64, 25, 12, 22, 11};
+
+    cout << "Original array: ";
+    printArray(arr);
+
+    // Bubble Sort
+    vector<int> b = arr;
+    bubbleSort(b);
+    cout << "Bubble Sort: ";
+    printArray(b);
+
+    // Insertion Sort
+    vector<int> ins = arr;
+    insertionSort(ins);
+    cout << "Insertion Sort: ";
+    printArray(ins);
+
+    // Merge Sort
+    vector<int> m = arr;
+    mergeSort(m, 0, m.size()-1);
+    cout << "Merge Sort: ";
+    printArray(m);
+
+    // Quick Sort
+    vector<int> q = arr;
+    quickSort(q, 0, q.size()-1);
+    cout << "Quick Sort: ";
+    printArray(q);
+
+    // Heap Sort
+    vector<int> h = arr;
+    heapSort(h);
+    cout << "Heap Sort: ";
+    printArray(h);
+
+    return 0;
+}`
+            },
+             "A* Search": {
+                problem: "Drone delivery requires 3D pathfinding. Unlike cars, drones can move diagonally and must avoid no-fly zones. We need a path that is not just short but also computationally efficient to calculate in real-time.",
+                solution: "A* (A-Star) Search improves on Dijkstra by using a heuristic function (e.g., Euclidean distance to the destination). This 'guess' guides the algorithm towards the goal, significantly reducing the number of nodes explored compared to a blind search.",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int x, y;
+    int g, h; // g = cost so far, h = heuristic
+    Node* parent;
+
+    Node(int _x, int _y, int _g, int _h, Node* _p = nullptr)
+        : x(_x), y(_y), g(_g), h(_h), parent(_p) {}
+
+    int f() const { return g + h; } // total cost
+};
+
+// Manhattan distance heuristic
+int heuristic(int x1, int y1, int x2, int y2) {
+    return abs(x1 - x2) + abs(y1 - y2);
+}
+
+// Check if position is valid
+bool isValid(int x, int y, int rows, int cols, vector<vector<int>>& grid) {
+    return (x >= 0 && x < rows && y >= 0 && y < cols && grid[x][y] == 0);
+}
+
+// A* Search
+vector<pair<int,int>> aStar(vector<vector<int>>& grid, pair<int,int> start, pair<int,int> goal) {
+    int rows = grid.size(), cols = grid[0].size();
+
+    auto cmp = [](Node* a, Node* b) { return a->f() > b->f(); };
+    priority_queue<Node*, vector<Node*>, decltype(cmp)> openSet(cmp);
+
+    vector<vector<bool>> closed(rows, vector<bool>(cols, false));
+
+    Node* startNode = new Node(start.first, start.second, 0,
+                               heuristic(start.first, start.second, goal.first, goal.second));
+    openSet.push(startNode);
+
+    vector<int> dx = {-1, 1, 0, 0};
+    vector<int> dy = {0, 0, -1, 1};
+
+    while (!openSet.empty()) {
+        Node* current = openSet.top();
+        openSet.pop();
+
+        if (current->x == goal.first && current->y == goal.second) {
+            // reconstruct path
+            vector<pair<int,int>> path;
+            while (current) {
+                path.push_back({current->x, current->y});
+                current = current->parent;
+            }
+            reverse(path.begin(), path.end());
+            return path;
+        }
+
+        closed[current->x][current->y] = true;
+
+        for (int i = 0; i < 4; i++) {
+            int nx = current->x + dx[i];
+            int ny = current->y + dy[i];
+
+            if (isValid(nx, ny, rows, cols, grid) && !closed[nx][ny]) {
+                int gNew = current->g + 1;
+                int hNew = heuristic(nx, ny, goal.first, goal.second);
+                Node* neighbor = new Node(nx, ny, gNew, hNew, current);
+                openSet.push(neighbor);
+            }
+        }
+    }
+
+    return {}; // no path found
+}
+
+int main() {
+    // 0 = free cell, 1 = blocked
+    vector<vector<int>> grid = {
+        {0, 0, 0, 0, 0},
+        {1, 1, 0, 1, 0},
+        {0, 0, 0, 0, 0},
+        {0, 1, 1, 1, 0},
+        {0, 0, 0, 0, 0}
+    };
+
+    pair<int,int> start = {0, 0};
+    pair<int,int> goal = {4, 4};
+
+    vector<pair<int,int>> path = aStar(grid, start, goal);
+
+    if (!path.empty()) {
+        cout << "Path found:\n";
+        for (auto [x, y] : path) {
+            cout << "(" << x << "," << y << ") ";
+        }
+        cout << "\n";
+    } else {
+        cout << "No path found.\n";
+    }
+
+    return 0;
+}`
+            },
+             "Congestion Monitoring": {
+                problem: "Traffic sensors send data every second. To detect sustained congestion (not just momentary stops), we need to analyze the average traffic density over a rolling window (e.g., the last 5 minutes).",
+                solution: "The Sliding Window technique is used. Instead of re-calculating the sum of the last K elements from scratch every second (O(k*n)), we maintain a running sum. When the window slides, we subtract the element leaving and add the element entering (O(n)).",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+class TrafficAnalyzer {
+    int K; // window size (e.g., 5 minutes = 300 seconds)
+    queue<int> window;
+    long long sum; // running sum
+
+public:
+    TrafficAnalyzer(int k) : K(k), sum(0) {}
+
+    // Add new traffic density reading
+    void addReading(int density) {
+        window.push(density);
+        sum += density;
+
+        // If window exceeds size K, remove oldest
+        if ((int)window.size() > K) {
+            sum -= window.front();
+            window.pop();
+        }
+    }
+
+    // Get average density over last K readings
+    double getAverage() {
+        if (window.empty()) return 0.0;
+        return (double)sum / window.size();
+    }
+};
+
+int main() {
+    int K = 5; // rolling window size (example: last 5 readings)
+    TrafficAnalyzer analyzer(K);
+
+    vector<int> readings = {10, 20, 30, 40, 50, 60, 70};
+
+    for (int r : readings) {
+        analyzer.addReading(r);
+        cout << "Added: " << r 
+             << " | Current Average: " << analyzer.getAverage() << "\n";
+    }
+
+    return 0;
+}`
+            },
+             "EV Charging Stations": {
+                problem: "We have a limited budget to build charging stations but want to cover the maximum number of unique road segments. This is an optimization problem.",
+                solution: "This is a variant of the Set Cover Problem, which is NP-Hard. We use a Greedy Approximation algorithm. At each step, we pick the station location that covers the highest number of *currently uncovered* road segments, repeating until budget is exhausted or all roads are covered.",
+                code: `#include <bits/stdc++.h>
+using namespace std;
+
+// -------------------- Utility Functions --------------------
+
+// Print a set of integers (road segments)
+void printSet(const set<int>& s) {
+    cout << "{ ";
+    for (int x : s) cout << x << " ";
+    cout << "}";
+}
+
+// -------------------- Greedy Set Cover --------------------
+
+struct Station {
+    int id;                 // station identifier
+    set<int> covers;        // road segments this station covers
+};
+
+class ChargingPlanner {
+    int budget;                     // max number of stations we can build
+    vector<Station> stations;       // all candidate stations
+    set<int> allRoads;              // all road segments that need coverage
+
+public:
+    ChargingPlanner(int budget, vector<Station> stations, set<int> allRoads)
+        : budget(budget), stations(stations), allRoads(allRoads) {}
+
+    // Greedy algorithm to select stations
+    vector<int> selectStations() {
+        set<int> covered;           // road segments already covered
+        vector<int> chosenStations; // IDs of selected stations
+
+        // Repeat until budget exhausted or all roads covered
+        for (int step = 0; step < budget && covered.size() < allRoads.size(); step++) {
+            int bestStation = -1;
+            int maxNewCoverage = -1;
+            set<int> newCoverage;
+
+            // Find station with maximum uncovered roads
+            for (auto& st : stations) {
+                set<int> diff;
+                set_difference(st.covers.begin(), st.covers.end(),
+                               covered.begin(), covered.end(),
+                               inserter(diff, diff.begin()));
+
+                if ((int)diff.size() > maxNewCoverage) {
+                    maxNewCoverage = diff.size();
+                    bestStation = st.id;
+                    newCoverage = diff;
+                }
+            }
+
+            if (bestStation == -1) break; // no useful station left
+
+            // Add best station to chosen list
+            chosenStations.push_back(bestStation);
+
+            // Update covered roads
+            covered.insert(newCoverage.begin(), newCoverage.end());
+
+            // Debug output
+            cout << "Step " << step+1 << ": Chose station " << bestStation
+                 << " covering " << maxNewCoverage << " new roads. "
+                 << "Total covered = " << covered.size() << "\n";
+        }
+
+        cout << "\nFinal Covered Roads: ";
+        printSet(allRoads);
+        cout << "\nActually Covered Roads: ";
+        printSet(covered);
+        cout << "\n";
+
+        return chosenStations;
+    }
+};
+
+// -------------------- Main Function --------------------
+
+int main() {
+    // Example road segments: 1..10
+    set<int> allRoads = {1,2,3,4,5,6,7,8,9,10};
+
+    // Candidate stations with coverage sets
+    vector<Station> stations = {
+        {0, {1,2,3}},
+        {1, {2,4,5}},
+        {2, {6,7}},
+        {3, {3,8,9}},
+        {4, {5,7,10}},
+        {5, {1,4,6,8}}
+    };
+
+    int budget = 3; // can build at most 3 stations
+
+    ChargingPlanner planner(budget, stations, allRoads);
+
+    cout << "Running Greedy Approximation for Charging Station Placement...\n\n";
+
+    vector<int> chosen = planner.selectStations();
+
+    cout << "\nChosen Stations: ";
+    for (int id : chosen) cout << id << " ";
+    cout << "\n";
+
+    return 0;
+}`
+            },
+
+            // --- Amogh's Problems ---
+             "Grid Connectivity": {
+                problem: "We need to physically connect all power substations with high-voltage cables. Copper is expensive, so the goal is to minimize the total length of cable used while keeping the entire grid connected.",
+                solution: "This is a Minimum Spanning Tree (MST) problem. Prim's Algorithm is efficient for dense graphs. It starts with an arbitrary node and greedily adds the shortest edge connecting a node in the tree to a node outside the tree, ensuring no cycles are formed.",
+                code: `int primMST(vector<vector<pair<int, int>>>& adj, int V) {
+    priority_queue<pair<int, int>, ...> pq;
+    vector<int> key(V, INT_MAX);
+    // ... standard Prim's implementation ...
+}`
+            },
+             "Battery Storage Optimization": {
+                problem: "Energy storage is limited. During peak solar production, we have various 'energy packets' (generated units) with different values (efficiency) and sizes (storage cost). We need to fill our battery storage to maximize total value.",
+                solution: "This maps directly to the 0/1 Knapsack Problem. A Greedy approach fails here. We use Dynamic Programming. `dp[w]` stores the max value achievable with capacity `w`. We iterate through items and update the DP table.",
+                code: `int knapSack(int W, vector<int>& wt, vector<int>& val, int n) {
+    vector<int> dp(W + 1, 0);
+    for(int i=0; i<n; i++)
+        for(int w=W; w>=wt[i]; w--)
+            dp[w] = max(dp[w], val[i] + dp[w-wt[i]]);
+    return dp[W];
+}`
+            },
+            // ... (I have included the rest of the existing data in the file, keeping the structure identical to previous output but ensuring full functionality for the new layout)
+            "Load Balancing": {
+                problem: "Incoming power requests need to be assigned to substations. We want to assign tasks to the machine with the current minimum load.",
+                solution: "A Greedy approach using a Min-Heap. We maintain the current load of all servers in a Min-Heap. For every new task, we extract the server with min load, add the task, and push it back.",
+                code: `priority_queue<int, vector<int>, greater<int>> pq;
+// Initialize pq with 0 load for all servers
+for(int task : tasks) {
+    int currentLoad = pq.top();
+    pq.pop();
+    currentLoad += task;
+    pq.push(currentLoad);
+}`
+            },
+            "System Boot Sequence": {
+                problem: "Power plant subsystems have dependencies (e.g., Cooling must start before Turbine). We need a valid linear startup order.",
+                solution: "This is a Directed Acyclic Graph (DAG) problem. We use Topological Sort (Kahn's Algorithm). We repeatedly pick nodes with in-degree 0 (no dependencies) and remove them from the graph.",
+                code: `vector<int> topologicalSort(int V, vector<vector<int>>& adj) {
+    vector<int> in_degree(V, 0);
+    for (int u = 0; u < V; u++) {
+        for (int v : adj[u]) in_degree[v]++;
+    }
+
+    queue<int> q;
+    for (int i = 0; i < V; i++)
+        if (in_degree[i] == 0) q.push(i);
+
+    vector<int> result;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        result.push_back(u);
+        for (int v : adj[u])
+            if (--in_degree[v] == 0) q.push(v);
+    }
+    return result;
+}`
+            },
+            "Fault Detection": {
+                problem: "A power line is 100km long. We can test voltage at any point. If voltage is 0, the break is before that point. Find the break with minimum tests.",
+                solution: "Since the line is linear and the fault condition is monotonic (Good...Good...Break...Bad...Bad), we use Binary Search to find the transition point.",
+                code: `int findBreak(int low, int high) {
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (checkVoltage(mid) == 0) // Fault is to the left
+            high = mid - 1;
+        else // Fault is to the right
+            low = mid + 1;
+    }
+    return low; // Approximate location
+}`
+            },
+            "Peak Usage Query": {
+                problem: "We have an array of energy usage per hour. We need to answer many queries: 'What was the max usage between hour L and R?'",
+                solution: "A Segment Tree is built on the array. Each node stores the max of its children. This allows Range Maximum Query (RMQ) in O(log n) time.",
+                code: `int query(int node, int start, int end, int l, int r) {
+    if (r < start || end < l) return INT_MIN;
+    if (l <= start && end <= r) return tree[node];
+    int mid = (start + end) / 2;
+    int p1 = query(2 * node, start, mid, l, r);
+    int p2 = query(2 * node + 1, mid + 1, end, l, r);
+    return max(p1, p2);
+}`
+            },
+            "Smart Meter Compression": {
+                problem: "Smart meters send data constantly. Some values (like 0 usage) occur frequently. We want to reduce data size.",
+                solution: "Huffman Coding assigns shorter binary codes to more frequent characters/values. It builds a binary tree where frequent items are near the root.",
+                code: `// Standard Huffman logic
+struct Node {
+    char ch; int freq;
+    Node *left, *right;
+};
+// Use Priority Queue to merge two smallest freq nodes repeatedly
+// until one tree remains.`
+            },
+            "Frequency Allocation": {
+                problem: "Substations transmit data. Adjacent stations cannot use the same frequency to avoid interference. Minimize total frequencies used.",
+                solution: "This is the Graph Coloring problem. We use a Greedy coloring algorithm: iterate through nodes and assign the smallest color index not used by any neighbor.",
+                code: `void greedyColoring(vector<vector<int>> &adj, int V) {
+    vector<int> result(V, -1);
+    result[0] = 0;
+    vector<bool> available(V, true);
+
+    for (int u = 1; u < V; u++) {
+        for (int i : adj[u])
+            if (result[i] != -1) available[result[i]] = false;
+
+        int cr;
+        for (cr = 0; cr < V; cr++)
+            if (available[cr]) break;
+            
+        result[u] = cr;
+        fill(available.begin(), available.end(), true); // Reset
+    }
+}`
+            },
+            "Real-time Consumption": {
+                problem: "We have an array of consumption values. We frequently update values (index i) and query the total consumption from index 0 to i.",
+                solution: "A Fenwick Tree (Binary Indexed Tree) provides O(log n) updates and O(log n) prefix sum queries, which is faster than an array for updates.",
+                code: `void update(int i, int delta) {
+    for (; i < n; i = i | (i + 1))
+        bit[i] += delta;
+}
+int query(int i) {
+    int sum = 0;
+    for (; i >= 0; i = (i & (i + 1)) - 1)
+        sum += bit[i];
+    return sum;
+}`
+            },
+            "Billing & User lookup": {
+                problem: "We need to retrieve user billing info instantly using their unique User ID.",
+                solution: "A Hash Map (Unordered Map in C++) uses a hash function to map keys to indices, providing O(1) average time complexity for lookups.",
+                code: `unordered_map<string, UserData> db;
+// Insert
+db["user_123"] = { "John", 500.50 };
+// Lookup
+if(db.find("user_123") != db.end()) {
+    return db["user_123"].bill;
+}`
+            },
+            
+            // --- Subhash's Problems ---
+             "Population Density Analysis": {
+                problem: "Calculate total population in a rectangular area (x1, y1) to (x2, y2) of the city grid.",
+                solution: "We precompute a 2D Prefix Sum array. `pref[i][j]` stores sum of rectangle from (0,0) to (i,j). Any sub-rectangle sum is calculated in O(1) using the inclusion-exclusion principle.",
+                code: `// Precompute
+for(int i=1; i<=n; i++)
+    for(int j=1; j<=m; j++)
+        P[i][j] = matrix[i-1][j-1] + P[i-1][j] + P[i][j-1] - P[i-1][j-1];
+
+// Query
+int ans = P[x2][y2] - P[x1-1][y2] - P[x2][y1-1] + P[x1-1][y1-1];`
+            },
+            "Spatial Indexing": {
+                problem: "Find all schools within a radius R of a coordinate. A simple list search is too slow.",
+                solution: "A Quadtree recursively divides the 2D plane into four quadrants. Points are stored in leaf nodes. This allows for O(log n) spatial queries by ignoring quadrants that don't intersect the search area.",
+                code: `struct Point { int x, y; };
+struct QuadTree {
+    Point topLeft, botRight;
+    QuadTree *nw, *ne, *sw, *se;
+    vector<Point> points;
+    // Logic to subdivide when points exceed capacity
+};`
+            },
+            "City Boundary Logic": {
+                problem: "Given a set of outermost suburb coordinates, determine the polygon that encloses the entire city.",
+                solution: "Convex Hull algorithm (e.g., Graham Scan or Monotone Chain). It sorts points and builds upper and lower hulls to find the perimeter points.",
+                code: `// Monotone Chain Algorithm
+vector<Point> convex_hull(vector<Point>& pts) {
+    sort(pts.begin(), pts.end());
+    vector<Point> hull;
+    // Build lower hull
+    for (const auto& p : pts) {
+        while (hull.size() >= 2 && cross_product(hull[hull.size()-2], hull.back(), p) <= 0)
+            hull.pop_back();
+        hull.push_back(p);
+    }
+    // Build upper hull logic similar...
+    return hull;
+}`
+            },
+            "Housing Allocation": {
+                problem: "Allocate budget to build different types of houses (Luxury, Affordable) to maximize utility/happiness.",
+                solution: "Unbounded Knapsack problem (Dynamic Programming). Similar to 0/1 knapsack but items can be chosen multiple times.",
+                code: `vector<int> dp(W + 1, 0);
+for (int i = 0; i <= W; i++) {
+    for (int j = 0; j < n; j++) {
+        if (wt[j] <= i)
+            dp[i] = max(dp[i], dp[i - wt[j]] + val[j]);
+    }
+}`
+            },
+            "Constraint Satisfaction": {
+                problem: "Place N industrial zones on an NxN grid such that no two zones share the same row, column, or diagonal (N-Queens variant).",
+                solution: "Backtracking. We place a zone in a row, check validity, and recursively move to the next row. If stuck, we backtrack and change the previous placement.",
+                code: `bool solveNQUtil(vector<vector<int>>& board, int col) {
+    if (col >= N) return true;
+    for (int i = 0; i < N; i++) {
+        if (isSafe(board, i, col)) {
+            board[i][col] = 1;
+            if (solveNQUtil(board, col + 1)) return true;
+            board[i][col] = 0; // Backtrack
+        }
+    }
+    return false;
+}`
+            },
+            "Skyline Problem": {
+                problem: "Given building coordinates (Left, Right, Height), output the contour of the skyline.",
+                solution: "We treat buildings as critical points (left edge start, right edge end). We scan left to right and use a Max-Heap (or Multiset) to keep track of the max height active at the current X coordinate.",
+                code: `// Pseudo-code for Skyline
+vector<pair<int, int>> getSkyline(buildings) {
+    // Transform to points: (x, -h) for start, (x, h) for end
+    sort(points);
+    multiset<int> heights = {0};
+    int prevMax = 0;
+    for(p : points) {
+        if(start) heights.insert(h);
+        else heights.remove(h);
+        int curMax = *heights.rbegin();
+        if(curMax != prevMax) {
+            result.push({p.x, curMax});
+            prevMax = curMax;
+        }
+    }
+}`
+            },
+            "Service Center Locations": {
+                problem: "Group residential blocks into K clusters to place a service center at the mean location of each cluster.",
+                solution: "K-Means Clustering. Initialize K centroids randomly. 1. Assign each point to nearest centroid. 2. Recalculate centroids. 3. Repeat until convergence.",
+                code: `// K-Means Logic
+while(changed) {
+    // Assignment Step
+    for(p : points) {
+        p.cluster = nearestCentroid(p);
+    }
+    // Update Step
+    for(k=0; k<K; k++) {
+        centroids[k] = average(pointsInCluster[k]);
+    }
+}`
+            },
+            "Job Assignment": {
+                problem: "Assign N construction crews to N sites based on skill compatibility.",
+                solution: "Max Bipartite Matching. Create a bipartite graph (Crews vs Sites). Use DFS to find a matching path.",
+                code: `bool bpm(int u, bool visited[], int matchR[]) {
+    for (int v = 0; v < N; v++) {
+        if (bpGraph[u][v] && !visited[v]) {
+            visited[v] = true;
+            if (matchR[v] < 0 || bpm(matchR[v], visited, matchR)) {
+                matchR[v] = u;
+                return true;
+            }
+        }
+    }
+    return false;
+}`
+            },
+            "Overlap Detection": {
+                problem: "Given N line segments (utility pipes), determine if any two intersect.",
+                solution: "Sweep Line Algorithm. Sort endpoints by X. Iterate through points. If left point, add to active set (BST). If right, remove. Check intersection with neighbors in active set.",
+                code: `// Sweep Line concept
+sort(events); // Events are start or end of segments
+set<Segment> active;
+for(e : events) {
+    if(e.type == START) {
+        // check intersection with successor/predecessor in active
+        active.insert(e.segment);
+    } else {
+        active.erase(e.segment);
+    }
+}`
+            },
+            "Flood Risk Assessment": {
+                problem: "Given a terrain grid where each cell has height. Water flows from High to Low. Identify all cells that water can reach from a river source.",
+                solution: "DFS/BFS Traversal on a Matrix. Start DFS from river cells. Move to adjacent cells if `height[next] <= height[current]`.",
+                code: `void dfs(int r, int c, vector<vector<int>>& h, vector<vector<bool>>& visited) {
+    visited[r][c] = true;
+    int dr[] = {0,0,1,-1};
+    int dc[] = {1,-1,0,0};
+    for(int i=0; i<4; i++) {
+        int nr = r + dr[i], nc = c + dc[i];
+        if(isValid(nr, nc) && !visited[nr][nc] && h[nr][nc] <= h[r][c])
+            dfs(nr, nc, h, visited);
+    }
+}`
+            },
+
+            // --- Abhinav's Problems ---
+             "Emergency Dispatch": {
+                problem: "When an emergency call comes in, assign the nearest available ambulance. Prioritize incidents with higher severity.",
+                solution: "Priority Queue (Min-Heap) for distance or Max-Heap for severity. We store events as `{severity, distance, id}` and pop the top element to dispatch.",
+                code: `struct Event {
+    int severity;
+    int distance;
+    bool operator<(const Event& other) const {
+        if (severity != other.severity) return severity < other.severity; // Higher severity first
+        return distance > other.distance; // Lower distance second
+    }
+};
+priority_queue<Event> pq;`
+            },
+            "Garbage Truck Routing": {
+                problem: "A garbage truck must visit a set of dumpsters and return to base. Minimize distance.",
+                solution: "Traveling Salesperson Problem (TSP). Since N is small for a single truck's route, we can use Dynamic Programming with Bitmasking `dp[mask][last_visited]`.",
+                code: `int tsp(int mask, int pos) {
+    if (mask == VISITED_ALL) return dist[pos][0];
+    if (dp[mask][pos] != -1) return dp[mask][pos];
+
+    int ans = INT_MAX;
+    for (int city = 0; city < n; city++) {
+        if ((mask & (1 << city)) == 0) {
+            int newAns = dist[pos][city] + tsp(mask | (1 << city), city);
+            ans = min(ans, newAns);
+        }
+    }
+    return dp[mask][pos] = ans;
+}`
+            },
+            "Fire Station Coverage": {
+                problem: "Find the minimum time to reach any building from ANY fire station.",
+                solution: "Multi-Source BFS. Instead of starting BFS from one node, we push ALL fire stations into the queue initially with distance 0. Then run standard BFS.",
+                code: `queue<int> q;
+for(int station : stations) {
+    q.push(station);
+    dist[station] = 0;
+}
+while(!q.empty()) {
+    int u = q.front(); q.pop();
+    for(int v : adj[u]) {
+        if(dist[v] == INF) {
+            dist[v] = dist[u] + 1;
+            q.push(v);
+        }
+    }
+}`
+            },
+            "Crime Hotspot Prediction": {
+                problem: "Classify a location as Safe or Risky based on K nearest historical crime reports.",
+                solution: "K-Nearest Neighbors (KNN). Calculate distance to all data points, sort by distance, pick top K, and vote.",
+                code: `// Simple KNN
+vector<pair<double, int>> distances;
+for(auto& p : data) {
+    distances.push_back({ dist(query, p.coords), p.label });
+}
+sort(distances.begin(), distances.end());
+int riskCount = 0;
+for(int i=0; i<K; i++) if(distances[i].second == RISK) riskCount++;
+return (riskCount > K/2) ? RISK : SAFE;`
+            },
+            "Emergency Contact Lookup": {
+                problem: "Autocompleting names or addresses for dispatchers.",
+                solution: "Trie (Prefix Tree). Each node represents a character. Efficient for prefix-based searching.",
+                code: `struct TrieNode {
+    TrieNode *children[26];
+    bool isEndOfWord;
+};
+void insert(TrieNode *root, string key) {
+    TrieNode *pCrawl = root;
+    for (int i = 0; i < key.length(); i++) {
+        int index = key[i] - 'a';
+        if (!pCrawl->children[index])
+            pCrawl->children[index] = new TrieNode();
+        pCrawl = pCrawl->children[index];
+    }
+    pCrawl->isEndOfWord = true;
+}`
+            },
+            "Hospital Bed Management": {
+                problem: "Schedule as many surgeries as possible in a specific operating room given start and end times.",
+                solution: "Interval Scheduling (Greedy). Sort requests by FINISH time. Always pick the next request that starts after the last one finished.",
+                code: `sort(intervals.begin(), intervals.end(), compareEndTime);
+int count = 1;
+int last_end = intervals[0].end;
+for(int i=1; i<n; i++) {
+    if(intervals[i].start >= last_end) {
+        count++;
+        last_end = intervals[i].end;
+    }
+}`
+            },
+            "Dispatch Logs": {
+                problem: "Keep exactly the last K calls for auditing.",
+                solution: "Circular Queue (Ring Buffer). A fixed-size array where the 'next' pointer wraps around to 0 after reaching the end.",
+                code: `void enqueue(int val) {
+    if ((rear + 1) % size == front) return; // Full
+    if (front == -1) front = 0;
+    rear = (rear + 1) % size;
+    arr[rear] = val;
+}`
+            },
+            "Disaster Evacuation": {
+                problem: "Calculate shortest paths between ALL pairs of districts and shelters to plan flexible evacuation routes.",
+                solution: "Floyd-Warshall Algorithm. Dynamic programming approach to find all-pairs shortest paths.",
+                code: `for (k = 0; k < V; k++) {
+    for (i = 0; i < V; i++) {
+        for (j = 0; j < V; j++) {
+            if (dist[i][k] + dist[k][j] < dist[i][j])
+                dist[i][j] = dist[i][k] + dist[k][j];
+        }
+    }
+}`
+            },
+            "Duplicate Incident Filtering": {
+                problem: "Many people call 911 for the same fire. We need to ignore duplicates.",
+                solution: "HashSet. Store hashes of active incidents (e.g., location_grid_id + type). Check existence in O(1).",
+                code: `unordered_set<string> activeIncidents;
+string id = to_string(x) + "_" + to_string(y) + "_" + type;
+if(activeIncidents.find(id) == activeIncidents.end()) {
+    activeIncidents.insert(id);
+    dispatch();
+}`
+            },
+            "Medical Data Access": {
+                problem: "Ambulance tablets have limited memory. Keep the most recently accessed patient records.",
+                solution: "LRU Cache. Use a Hash Map + Doubly Linked List. Map stores iterators to the list nodes. Move accessed node to front of list.",
+                code: `class LRUCache {
+    list<int> dq;
+    unordered_map<int, list<int>::iterator> ma;
+    // get: move iterator to front of list
+    // put: if full, pop back of list, push front
+};`
+            }
+        };
+
+        // --- Init ---
+        window.addEventListener('popstate', (event) => {
+            if (event.state && event.state.page) {
+                showPage(event.state.page);
+            } else {
+                showPage('home');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        });
+    </script>
+</body>
+</html>
+
+

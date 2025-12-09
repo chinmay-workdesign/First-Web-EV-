@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinmay - Project Swarna Nagar</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            450: '#10b981',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white/90 dark:bg-gray-900/95 backdrop-blur-md sticky top-0 z-40 border-b border-gray-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center cursor-pointer" onclick="window.location.href='index.html'">
+                    <i class="fa-solid fa-leaf text-emerald-600 dark:text-emerald-500 text-2xl mr-2"></i>
+                    <span class="brand-font text-xl font-bold text-gray-900 dark:text-white tracking-tight">Project Swarna Nagar</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Overview</a>
+                    <a href="chinmay.html" class="text-emerald-600 dark:text-emerald-400 font-medium transition">Chinmay</a>
+                    <a href="amogh.html" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Amogh</a>
+                    <a href="subhash.html" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Subhash</a>
+                    <a href="abhinav.html" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium transition">Abhinav</a>
+                    
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition focus:outline-none" aria-label="Toggle Dark Mode">
+                        <i id="theme-icon" class="fa-solid fa-sun text-yellow-500 text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center md:hidden space-x-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <i id="mobile-theme-icon" class="fa-solid fa-sun text-yellow-500 text-xl"></i>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-gray-600 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4 space-y-2 shadow-lg">
+            <a href="index.html" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Home</a>
+            <a href="chinmay.html" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Chinmay</a>
+            <a href="amogh.html" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Amogh</a>
+            <a href="subhash.html" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Subhash</a>
+            <a href="abhinav.html" class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 font-medium rounded">Abhinav</a>
+        </div>
+    </nav>
+
+    <main class="flex-grow relative">
+        <div class="bg-blue-600 dark:bg-blue-900/50 border-b border-blue-500 dark:border-blue-900/50 py-12 transition-colors">
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+                <div class="md:w-3/4 text-white">
+                    <h2 class="text-4xl font-bold mb-2">Chinmay B Sabarad</h2>
+                    <h3 class="text-blue-100 dark:text-blue-300 text-xl font-medium">Head of Traffic & Transportation Systems</h3>
+                    <p class="mt-4 max-w-2xl text-blue-50 dark:text-gray-300">"Traffic isn't just cars; it's a flow network. By applying advanced graph algorithms, we minimize congestion and reduce the city's carbon footprint."</p>
+                </div>
+                <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
+                    <i class="fa-solid fa-road text-9xl text-blue-300 dark:text-blue-500 opacity-30"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-blue-500 pl-4">10 Key Problems Solved</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Dijkstra's Algo</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Shortest Path Navigation</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Calculating the fastest route for EVs from point A to B considering dynamic edge weights (traffic).</p>
+                </div>
+                
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Ford-Fulkerson</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Max Traffic Flow</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Determining the maximum capacity of the highway network during rush hour to prevent bottlenecks.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">BFS</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Subway Connectivity Check</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Using Breadth-First Search to ensure all stations in the metro network are reachable from the central hub.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Cycle Detection</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Deadlock Prevention</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Detecting circular dependencies in autonomous vehicle routing logic using DFS to prevent gridlock.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Union-Find</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Road Network Maintenance</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Determining connected components of the city road map when specific roads are closed for repairs.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Tarjan's Algo</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Critical Bridge Identification</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Finding articulation points in the graph to identify bridges that, if failed, would disconnect the city.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Sorting</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Traffic Light Sync</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Sorting intersection throughput data to prioritize green light duration for high-volume streets.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">A* Search</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Drone Delivery Routing</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Heuristic pathfinding for aerial delivery drones to avoid no-fly zones and high buildings.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Sliding Window</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">Congestion Monitoring</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Analyzing real-time sensor streams to detect traffic spikes within a specific time window.</p>
+                </div>
+
+                <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-blue-200 dark:border-blue-800">Greedy</span>
+                        <h4 class="font-bold text-lg text-gray-900 dark:text-white">EV Charging Stations</h4>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Optimally placing charging stations to cover the maximum number of road segments with minimum cost.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Structure -->
+    <div id="problemModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeProblemModal()"></div>
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col relative z-10 transition-colors">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-900 dark:text-white font-mono">Algorithm Title</h3>
+                <button onclick="closeProblemModal()" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scrollbar bg-gray-50 dark:bg-gray-900/50">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Problem Statement</h4>
+                        <p id="modalProblem" class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">Problem description goes here.</p>
+                        
+                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Solution Approach</h4>
+                        <p id="modalSolution" class="text-gray-700 dark:text-gray-300 leading-relaxed">Solution explanation goes here.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">C++ Implementation</h4>
+                        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+                            <pre><code id="modalCode" class="language-cpp"></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 text-gray-800 dark:text-white py-8 mt-auto transition-colors">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="brand-font text-lg font-bold">Project Swarna Nagar</span>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">Building a sustainable future, one algorithm at a time.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"><i class="fa-brands fa-github text-xl"></i></a>
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition"><i class="fa-brands fa-twitter text-xl"></i></a>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-gray-500 dark:text-gray-600 text-xs">
+            &copy; 2025 Project Swarna Nagar Team (KLETU). All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="shared.js"></script>
+</body>
+</html>
