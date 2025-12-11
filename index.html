@@ -832,32 +832,51 @@
                 </button>
             </div>
             
+           
             <!-- Modal Content -->
-            <div class="p-6 overflow-y-auto custom-scrollbar bg-gray-50 dark:bg-gray-900/50">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Problem Statement</h4>
-                        <p id="modalProblem" class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
-                            Problem description goes here.
-                        </p>
-                        
-                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Solution Approach</h4>
-                        <p id="modalSolution" class="text-gray-700 dark:text-gray-300 leading-relaxed">
-                            Solution explanation goes here.
-                        </p>
-                    </div>
-                    <div>
-                        <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">C++ Implementation</h4>
-                        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
-                            <pre><code id="modalCode" class="language-cpp">
+<div class="p-6 overflow-y-auto custom-scrollbar bg-gray-50 dark:bg-gray-900/50">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- LEFT SIDE -->
+        <div>
+            <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Problem Statement</h4>
+            <p id="modalProblem" class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                Problem description goes here.
+            </p>
+
+            <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">Solution Approach</h4>
+            <p id="modalSolution" class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                Solution explanation goes here.
+            </p>
+        </div>
+
+        <!-- RIGHT SIDE = C++ CODE -->
+        <div>
+            <h4 class="text-emerald-600 dark:text-emerald-400 font-bold mb-2 uppercase text-xs tracking-wider">C++ Implementation</h4>
+            <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
+                <pre><code id="modalCode" class="language-cpp">
 // Code goes here
-                            </code></pre>
-                        </div>
-                    </div>
+                </code></pre>
+            </div>
+
+            <!-- EXTRA SECTION: CODE & DATASET BUTTONS (INSIDE MODAL NOW) -->
+            <div class="mt-6 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-md">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">Additional Resources</h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button id="viewCodeBtn" onclick="openCodeLink()" class="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-semibold">
+                        View Code
+                    </button>
+
+                    <button id="dataSheetBtn" onclick="openDatasetLink()" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold">
+                        Dataset
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+    
 
     <!-- Footer -->
     <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 text-gray-800 dark:text-white py-8 mt-auto transition-colors">
@@ -2376,5 +2395,6 @@ if(activeIncidents.find(id) == activeIncidents.end()) {
     </script>
 </body>
 </html>
+
 
 
