@@ -1962,6 +1962,7 @@ Chosen Stations: ";
                 member: "Amogh/p1",
                 problem: "A network of power substations must be connected using underground or overhead transmission cables. Copper and installation costs are high, so the electricity board wants to connect all substations with the minimum total cable length, while ensuring that every station remains reachable from any other. The goal is to design the most cost-efficient infrastructure that avoids unnecessary loops or redundant wiring.",
                 solution: "The problem is best modeled as a weighted graph where each substation represents a node and each feasible cable path represents an edge with a distance or cost value. To minimize total cable length, we use Prim’s Algorithm to construct a Minimum Spanning Tree (MST). The algorithm begins at any substation and repeatedly selects the cheapest available connection that links a new substation to the already connected network, ensuring that cycles are avoided. This greedy, incremental approach guarantees the globally optimal configuration. The resulting MST provides a cost-efficient layout that satisfies full connectivity while minimizing infrastructure expenditure.",
+                data_structures: "Adjacency List,Min-Heap,Array",
                 code: `// A C++ program for Prim's Minimum
 // Spanning Tree (MST) algorithm. The program is
 // for adjacency matrix representation of the graph
@@ -2069,6 +2070,7 @@ int main() {
                 member: "Amogh/p2",
                 problem: "Solar power generation exhibits large fluctuations during peak sunlight hours. The energy produced during these times arrives in varying packet sizes and efficiency values. Battery storage systems, however, have fixed capacity limits and cannot store everything that is generated. The challenge is to select the ideal subset of available energy packets that maximizes the total stored value without exceeding storage capacity. This decision must account for both the size and the utility of each packet, making the optimization non-trivial.",
                 solution: "This storage-selection task aligns with the classic 0/1 Knapsack problem. To solve it effectively, Dynamic Programming is used to examine all viable combinations efficiently. For each possible storage limit, the algorithm determines the maximum value achievable by either including or excluding each energy packet. Through this systematic evaluation, it becomes possible to identify the combination that ensures the greatest total stored energy value within the battery’s capacity. This approach guarantees optimal results and helps maximize battery efficiency, especially during peak generation periods.",
+                 data_structures: "Arrays, Dynamic Programming Table (Matrix)",
                 code: `#include <bits/stdc++.h>
 using namespace std;
 
@@ -2110,6 +2112,7 @@ int main() {
                 member: "Amogh/p3",
                 problem: "In a power distribution system, substations frequently receive power-processing requests of different sizes. If many requests are assigned to a single station while others remain underutilized, the system becomes imbalanced, causing overload risk, inefficiency, and reduced system responsiveness. To maintain uniform usage across substations, it is crucial to always assign incoming tasks to the substation that currently has the lowest workload.",
                 solution: "The problem is addressed through a Greedy load-balancing approach supported by a Min-Heap structure. The heap continually maintains substations ordered by their current load. For each new power request, the algorithm extracts the substation with the minimum load, assigns the new request to it, updates the load, and reinserts it into the heap. This ensures that at all stages of operation, tasks are distributed in a way that equalizes load across substations. The system remains efficient, avoids overload, and delivers balanced task allocation in real time.",
+                data_structures: "Min-Heap (Priority Queue), Array",
                 code: `#include <iostream>
 #include <queue>
 #include <vector>
@@ -2182,6 +2185,7 @@ Final Load Distribution:
                 member: "Amogh/p4",
                 problem: "A power plant comprises numerous subsystems such as cooling units, turbines, generators, control modules, and safety mechanisms. Many of these systems depend on others being initialized before they can safely start. If these dependencies are not respected, the plant may fail to boot correctly or, worse, enter an unsafe state. Thus, determining a valid startup sequence that respects all prerequisite relationships is essential.",
                 solution: "This dependency structure forms a Directed Acyclic Graph (DAG), where nodes represent subsystems and directed edges indicate activation order requirements. To derive a valid sequence, Topological Sorting specifically Kahn’s Algorithm is used. It starts by identifying systems with no remaining dependencies and activates them first. As each subsystem is activated, its outgoing edges are removed, reducing dependencies for other systems. This process repeats until all systems have been assigned positions in the sequence. The result is a safe, logically consistent boot order that respects all operational requirements.",
+                                data_structures: "Directed Graph (Adjacency List), Queue, Array",
                 code: `vector<string> topologicalSort(const unordered_map<string, vector<string>>& digraph)
 {
 
@@ -2239,6 +2243,7 @@ Final Load Distribution:
                 member: "Amogh/p5",
                 problem: "Power lines span long distances, and identifying the exact point of failure after a line break is critical for quick repair and restoration of service. A voltage test can be performed at any point along the line. If the voltage is nonzero, the break lies further ahead; if it is zero, the break has been passed. Since repeatedly testing the entire line would waste time and resources, a faster, more intelligent search method is necessary.",
                 solution: "Because the voltage pattern along the line is monotonic showing healthy readings up to the break and zero readings beyond the break location can be identified with Binary Search. By repeatedly testing the voltage at the midpoint of the remaining segment, the algorithm determines which half of the line contains the break, effectively halving the search space each time. After a logarithmic number of steps, the exact break location is identified. This drastically reduces diagnostic time and helps maintenance teams address faults quickly.",
+                data_structures: "Array",
                 code: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -2279,6 +2284,7 @@ int main() {
                 member: "Amogh/p6",
                 problem: "Electricity consumption fluctuates significantly across hours in a day. Utility operators often need to examine maximum usage within specific time intervals to detect peak demand patterns, analyze trends, and plan load distribution. Since such queries may occur frequently and datasets may be large, scanning the entire range for each query is highly inefficient.",
                 solution: "A Segment Tree provides a hierarchical representation of the consumption array, allowing efficient querying of maximum values across any selected time interval. Each node in the tree stores the maximum usage for a particular range. When a query is issued, the algorithm intelligently combines the results from relevant segments rather than scanning the full range. As a result, both updates and queries are processed efficiently in logarithmic time, enabling real-time analytics even under heavy workloads.",
+                 data_structures: "Array, Segment Tree",
                 code: `#include <iostream>
 #include <vector>
 using namespace std;
@@ -2383,6 +2389,7 @@ int main() {
                 member: "Amogh/p7",
                 problem: "Smart meters continuously transmit consumption data to central servers. These data streams often contain repetitive values, especially during low-usage periods. Sending this information in raw form is inefficient and consumes unnecessary bandwidth, increasing operational costs.",
                 solution: "Huffman Coding is applied to compress this data efficiently. The idea is to assign shorter binary codes to values that appear frequently and longer codes to those that are rare. By constructing a binary tree based on frequency distribution, the algorithm creates a prefix-free code set that minimizes the overall number of bits required to represent the data. This form of compression is lossless, meaning the original data can be perfectly reconstructed, and leads to substantial savings in communication bandwidth.",
+                data_structures: "Priority Queue (Min-Heap), Binary Tree, Array",
                 code: `// C++ code for the above approach:
 #include <bits/stdc++.h>
 using namespace std;
@@ -2473,6 +2480,7 @@ int main() {
                 member: "Amogh/p8",
                 problem: "Wireless communication among substations requires assigning frequencies that avoid interference. Adjacent substations cannot use the same frequency; otherwise, signals could overlap and degrade communication. The problem is to assign frequencies to all substations such that no two neighboring ones conflict, using the minimum number of unique frequencies.",
                 solution: "This frequency assignment problem maps directly to graph coloring, where each substation is represented as a node and connections between substations form edges. Using a Greedy Coloring algorithm, each node is visited and assigned the smallest frequency not currently used by any of its neighbors. This approach is simple yet effective and ensures interference-free operation with efficient frequency utilization.",
+                data_structures: "Graph (Adjacency List), Array",
                 code: `// A C++ program to implement greedy algorithm for graph coloring
 #include <iostream>
 #include <list>
@@ -2584,6 +2592,7 @@ Coloring of graph 2
                 member: "Amogh/p9",
                 problem: "Energy consumption values change rapidly in modern grid systems, and operators must be able to compute total usage up to any point instantly. Straightforward methods become slow when both frequent updates and frequent prefix-sum queries are required. A data structure that supports both operations efficiently is needed.",
                 solution: "A Fenwick Tree, also known as a Binary Indexed Tree, is used to store cumulative information in a compact and efficient form. It allows both updates and prefix-sum operations to be performed in logarithmic time. By using bitwise logic to jump through relevant ranges, the structure maintains accurate partial sums while minimizing computational overhead, making it ideal for real-time monitoring and analysis.",
+                                data_structures: "Array, Fenwick Tree (Binary Indexed Tree)",
                 code: `// C++ code to demonstrate operations of Fenwick Tree
 #include <iostream>
 
@@ -2679,6 +2688,7 @@ Sum of elements in arr[0..5] after update is "
                 member: "Amogh/p10",
                 problem: "Electricity providers must store billing information for thousands of users and retrieve it instantly when requested. Searching through the entire dataset each time would create significant delays and degrade user experience. A highly efficient lookup mechanism is essential for fast and accurate billing retrieval.",
                 solution: "Hash Maps provide nearly constant-time access by using a hashing function to compute an index where each user’s billing data is stored. When a User ID is requested, the hash function immediately points to the stored billing information without the need to scan the dataset. This method ensures extremely fast retrieval, supports large-scale systems, and maintains reliable performance even with massive user databases.",
+                data_structures: "Hash Map (Hash Table)",
                 code: `// C++ program to use unordered_map as HashMap
 #include <iostream>
 #include <unordered_map>
@@ -3157,5 +3167,6 @@ public:
     </script>
 </body>
 </html>
+
 
 
