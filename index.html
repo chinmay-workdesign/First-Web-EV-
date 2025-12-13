@@ -640,98 +640,224 @@
 
         <!-- ================= MEMBER 3 PAGE ================= -->
         <section id="member3" class="page-section hidden fade-in">
-             <div class="bg-purple-600 dark:bg-purple-900/50 border-b border-purple-500 dark:border-purple-900/50 py-12 transition-colors">
-                <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
-                    <div class="md:w-3/4 text-white">
-                        <h2 class="text-4xl font-bold mb-2">Subhash Reddy</h2>
-                        <h3 class="text-purple-100 dark:text-purple-300 text-xl font-medium">Head of Urban Planning</h3>
-                        <p class="mt-4 max-w-2xl text-purple-50 dark:text-gray-300">"A city is a matrix. I use Dynamic Programming and Spatial Data Structures to ensure optimal land use, minimizing sprawl and maximizing green space."</p>
-                    </div>
-                    <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
-                        <i class="fa-solid fa-city text-9xl text-purple-300 dark:text-purple-500 opacity-30"></i>
-                    </div>
+    <!-- HEADER (Purple Theme Like Yours, Layout Like Friend's) -->
+    <div class="bg-purple-600 dark:bg-purple-900/50 border-b border-purple-500 dark:border-purple-900/50 py-12 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-3/4 text-white">
+                <h2 class="text-4xl font-bold mb-2">Subhash Reddy</h2>
+                <h3 class="text-purple-100 dark:text-purple-300 text-xl font-medium">Head of Urban Planning</h3>
+                <p class="mt-4 max-w-2xl text-purple-50 dark:text-gray-300">
+                    "A city is a matrix. I use Dynamic Programming, Spatial Indexing, and Optimization Algorithms
+                    to build sustainable, resilient, and intelligently expanding urban environments."
+                </p>
+            </div>
+            <div class="md:w-1/4 mt-6 md:mt-0 flex justify-end">
+                <i class="fa-solid fa-city text-9xl text-purple-300 dark:text-purple-500 opacity-30"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-purple-500 pl-4">
+            10 Key Problems Solved
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- 1 URSEP -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Graphs, BFS, DFS, Min-Heap, Priority Queue, Union-Find, Edge Relaxation
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Urban Road Network Suitability & Expansion Planning (URSEP)
+                    </h4>
                 </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Identifies ideal future road corridors by analyzing connectivity gaps, congestion patterns,
+                    and structural feasibility. Helps create scalable, efficient mobility networks.
+                </p>
             </div>
 
-            <div class="max-w-7xl mx-auto px-4 py-12">
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 border-l-4 border-purple-500 pl-4">10 Key Problems Solved</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    
-                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">2D Prefix Sum</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Population Density Analysis</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Rapidly calculating the total population in any rectangular region of the city grid.</p>
-                    </div>
-                     <!-- (Continued for: Quadtree, Convex Hull, Dynamic Programming, Backtracking, Stack, K-Means, Bipartite Matching, Line Sweep, Matrix Traversal) -->
-                    <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Quadtree</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Spatial Indexing</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Efficiently storing locations of points of interest (parks, schools) to query "what is near me".</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Convex Hull</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">City Boundary Logic</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Determining the smallest convex polygon containing all city suburbs for administrative zoning.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Dynamic Programming</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Housing Allocation</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Optimizing the mix of affordable, luxury, and commercial units to maximize utility under budget constraints.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Backtracking</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Constraint Satisfaction</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Solving zoning puzzles (e.g., placing industrial zones far from residential ones) by exploring valid configurations.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Stack</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Skyline Problem</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Computing the city skyline view for rendering and sunlight analysis using monotonic stacks.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">K-Means Clustering</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Service Center Locations</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Grouping neighborhoods to determine the optimal centroids for new post offices or libraries.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Bipartite Matching</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Job Assignment</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Matching construction crews to building projects based on skills and location constraints.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Line Sweep</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Overlap Detection</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Detecting overlapping structures or utility lines in the architectural blueprints.</p>
-                    </div>
-                     <div onclick="openProblemModal(this)" class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm dark:shadow-md transition cursor-pointer">
-                        <div class="flex items-center mb-2">
-                            <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 text-xs font-semibold px-2.5 py-0.5 rounded mr-2 border border-purple-200 dark:border-purple-800">Matrix Traversal (DFS)</span>
-                            <h4 class="font-bold text-lg text-gray-900 dark:text-white">Flood Risk Assessment</h4>
-                        </div>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm">Simulating water flow across the city terrain grid to identify low-lying flood zones.</p>
-                    </div>
-
+            <!-- 2 CFCAP -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Dijkstra, Multi-Source BFS, KD-Tree, Range Tree, Radius Queries, Min-Heap
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Critical Facility Coverage & Accessibility Planning (CFCAP)
+                    </h4>
                 </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Ensures optimal placement of hospitals, police units, and fire stations by analyzing
+                    accessibility radii and minimizing emergency response times.
+                </p>
             </div>
-        </section>
+
+            <!-- 3 SIL-PCP -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        K-Means, Priority Queue, Fenwick Tree, Hash Map, Skip List, Greedy
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Sanitation Infrastructure Layout & Public Cleanliness Planning (SIL-PCP)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Designs sanitation zones, predicts waste generation hotspots, and optimizes collection
+                    schedules using density-based clustering.
+                </p>
+            </div>
+
+            <!-- 4 MSPIS -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        2D Prefix Sum, Segment Tree, Fenwick Tree, Sliding Window, Matrix DP
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Multi-Structure Population Intelligence System (MSPIS)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Offers instant access to population analytics across any city zone, supporting real-time
+                    decision-making in planning, resource allocation, and zoning.
+                </p>
+            </div>
+
+            <!-- 5 HSKG -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Quadtree, R-Tree, KD-Tree, Hash Table, Spatial Partitioning
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Hierarchical Spatial Knowledge Grid (HSKG)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Builds layered spatial indices for hospitals, schools, parks, and utilities—enabling
+                    ultra-fast nearest-facility queries and accessibility gap identification.
+                </p>
+            </div>
+
+            <!-- 6 IHDOF -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Dynamic Programming, Greedy, BST, Heaps, Constraint Graphs
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Intelligent Housing Distribution & Optimization Framework (IHDOF)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Balances affordability, zoning restrictions, density limits, and budget constraints to
+                    compute optimal housing distribution for sustainable city growth.
+                </p>
+            </div>
+
+            <!-- 7 RC-ZFS -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Backtracking, Constraint Satisfaction, Red-Black Tree, Pruning
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Regulatory Compliance & Zoning Feasibility Solver (RC-ZFS)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Validates zoning layouts automatically by checking buffer rules, pollution zones, height
+                    limits, and environmental safety restrictions.
+                </p>
+            </div>
+
+            <!-- 8 FRMHSS -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Priority Queue (Min-Heap), BFS, Terrain Graphs, Flow Simulation
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Flood Risk Management & Hydrological Simulation System (FRMHSS)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Models rainfall runoff, terrain flow, and flood spread to identify vulnerable zones and
+                    recommend drainage, retention ponds, and emergency pathways.
+                </p>
+            </div>
+
+            <!-- 9 MFAPO -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        K-Means, Prim’s MST, DFS/BFS, Partition Logic, Edge Relaxation
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Multi-Facility Accessibility & Placement Optimizer (MFAPO)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Identifies optimal locations for schools, PHCs, parks, and libraries by evaluating
+                    accessibility, population coverage, and travel-time reduction.
+                </p>
+            </div>
+
+            <!-- 10 SULCD-RE -->
+            <div onclick="openProblemModal(this)"
+                 class="problem-card bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 
+                        dark:border-gray-700 shadow-sm cursor-pointer transition">
+                <div class="flex items-center mb-2">
+                    <span class="bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 
+                                  text-xs font-semibold px-2.5 py-0.5 rounded mr-2">
+                        Segment Trees, Union-Find, Conflict Detection Graphs
+                    </span>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                        Smart Urban Land-Use Conflict Detection & Resolution Engine (SULCD-RE)
+                    </h4>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    Automatically detects land-use conflicts such as industrial-residential overlap or
+                    unsafe school-traffic proximity, and suggests safe zoning adjustments.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
 
         <!-- ================= MEMBER 4 PAGE ================= -->
         <section id="member4" class="page-section hidden fade-in">
@@ -3527,5 +3653,6 @@ int main() {
     </script>
 </body>
 </html>
+
 
 
