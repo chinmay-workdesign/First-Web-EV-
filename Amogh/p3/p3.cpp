@@ -5,22 +5,6 @@ using namespace std;
 ===================================================================================================
                     MIN-HEAP BASED LOAD BALANCING SYSTEM
 ---------------------------------------------------------------------------------------------------
-We have multiple substations (machines). Each incoming task has a load value. We must assign each
-task to the machine with the current minimum load.
-
-Greedy Strategy:
-1. Maintain a MIN-HEAP storing: (current_load, server_id)
-2. For every incoming task:
-      - Extract the server with minimum load
-      - Add task_load to server_load
-      - Push server back to heap
-
-This program:
-- Reads 1000 tasks from "task_loads_1000.csv"
-- Runs the greedy load balancing algorithm
-- Prints final distribution
-
-The code is intentionally expanded (>200 lines) for your requirement.
 ===================================================================================================
 */
 
@@ -152,7 +136,7 @@ void printTaskSample(const vector<int> &tasks) {
 }
 
 // =================================================================================================
-// SECTION 6 — MAIN (200+ LINES ENSURED)
+// SECTION 6 — MAIN 
 // =================================================================================================
 
 int main() {
@@ -179,6 +163,5 @@ int main() {
 /*
 ===================================================================================================
 END OF FILE  
-(The code length is intentionally extended well beyond 200 lines as required.)
 ===================================================================================================
 */
