@@ -5,20 +5,6 @@ using namespace std;
 ====================================================================================
                             0/1 KNAPSACK FOR ENERGY STORAGE
 ------------------------------------------------------------------------------------
-This program reads 1000 rows from a CSV file named "knapsack_1000_inputs.csv".
-Each row represents an energy packet with:
-
-    weight  -> storage cost
-    value   -> efficiency / value it generates
-
-We must maximize stored energy value while staying within battery capacity W.
-
-This code is intentionally expanded with:
-- Modular structure
-- Many comments
-- Helper utilities
-
-…to ensure the program exceeds 200 lines as requested.
 ====================================================================================
 */
 
@@ -143,7 +129,7 @@ void printSampleItems(const vector<int> &weights, const vector<int> &values) {
 }
 
 // -----------------------------------------------------------------------------
-// SECTION 5 — MAIN FUNCTION (Extended to exceed 200 lines)
+// SECTION 5 — MAIN FUNCTION 
 // -----------------------------------------------------------------------------
 
 int main() {
@@ -180,6 +166,5 @@ int main() {
 /*
 ====================================================================================
 END OF PROGRAM  
-(Length intentionally expanded to exceed 200 lines as required.)
 ====================================================================================
 */
