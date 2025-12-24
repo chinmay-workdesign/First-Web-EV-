@@ -1,52 +1,105 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 /*
 MODEL 6: IHDOF – Housing Distribution Optimizer
 Goal:
-Maximize housing utility under land/budget constraints.
-
-Housing Types:
-0 -> Affordable
-1 -> Premium
-2 -> Mixed-use
+Maximize housing utility under limited land/budget
 */
+
+struct Housing {
+    string type;
+    int cost;
+    int value;
+};
 
 int main() {
 
-    // ---------------- INPUT DATA ----------------
-    int budget = 10;   // total land/budget capacity
+    // ---------------- BASIC INPUT ----------------
+    int budget = 12;   // total land / budget capacity
 
-    // utility value of each housing type
-    int value[] = {30, 70, 50};
+    vector<Housing> houses = {
+        {"Affordable", 3, 30},
+        {"Premium",    6, 70},
+        {"MixedUse",   4, 50}
+    };
 
-    // land/budget cost of each housing type
-    int cost[]  = {3, 6, 4};
+    int n = houses.size();
 
-    int n = 3; // number of housing types
+    // ---------------- HASH MAP (zone constraints / metadata) ----------------
+    unordered_map<string, int> zoneLimit;
+    zoneLimit["Affordable"] = 3;
+    zoneLimit["Premium"] = 2;
+    zoneLimit["MixedUse"] = 2;
 
-    // ---------------- DP TABLE ----------------
-    vector<int> dp(budget + 1, 0);
+    // ---------------- PREFIX SUM (capacity tracking) ----------------
+    vector<int> prefixCost(n + 1, 0);
+    for (int i = 1; i <= n; i++) {
+        prefixCost[i] = prefixCost[i - 1] + houses[i - 1].cost;
+    }
+
+    // ---------------- SORTING (Greedy priority by value density) ----------------
+    sort(houses.begin(), houses.end(), [](Housing &a, Housing &b) {
+        return (double)a.value / a.cost > (double)b.value / b.cost;
+    });
+
+    // ---------------- PRIORITY QUEUE (Max-Heap) ----------------
+    priority_queue<pair<int,string>> pq;
+    for (auto &h : houses) {
+        pq.push({h.value, h.type});
+    }
 
     // ---------------- DYNAMIC PROGRAMMING ----------------
-    // Unbounded Knapsack (each housing type can be used multiple times)
+    vector<int> dp(budget + 1, 0);
+
     for (int b = 1; b <= budget; b++) {
-        for (int i = 0; i < n; i++) {
-            if (cost[i] <= b) {
-                dp[b] = max(dp[b], dp[b - cost[i]] + value[i]);
+        for (auto &h : houses) {
+            if (h.cost <= b) {
+                dp[b] = max(dp[b], dp[b - h.cost] + h.value);
             }
         }
     }
 
-    // ---------------- OUTPUT ----------------
-    cout << "Housing Budget Capacity: " << budget << endl;
-    cout << "Maximum Housing Utility Achieved: " << dp[budget] << endl;
+    // ---------------- BINARY SEARCH (minimum budget for utility threshold) ----------------
+    int targetUtility = 120;
+    int minBudget = -1;
+    int low = 0, high = budget;
 
-    cout << "\nDP Table (Budget vs Utility):\n";
-    for (int i = 0; i <= budget; i++) {
-        cout << "Budget " << i << " -> Utility " << dp[i] << endl;
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        if (dp[mid] >= targetUtility) {
+            minBudget = mid;
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
     }
+
+    // ---------------- OUTPUT ----------------
+    cout << "=== IHDOF : Housing Distribution Optimizer ===\n\n";
+
+    cout << "Total Budget Capacity: " << budget << endl;
+    cout << "Maximum Housing Utility: " << dp[budget] << endl;
+
+    cout << "\nDP Table (Budget -> Utility):\n";
+    for (int i = 0; i <= budget; i++) {
+        cout << "Budget " << i << " : " << dp[i] << endl;
+    }
+
+    cout << "\nHighest Priority Housing Types (Heap):\n";
+    while (!pq.empty()) {
+        cout << pq.top().second << " (Utility " << pq.top().first << ")\n";
+        pq.pop();
+    }
+
+    if (minBudget != -1)
+        cout << "\nMinimum Budget needed for utility " << targetUtility << " is: " << minBudget << endl;
+    else
+        cout << "\nTarget utility not achievable within budget.\n";
 
     return 0;
 }
